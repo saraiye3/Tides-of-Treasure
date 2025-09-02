@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6451088491973821261, guid: dcc381810ff8b49559f0eeda1870e8b6, type: 3}
+  m_Sprite: {fileID: 6158352449445352881, guid: c7c919c10c5838740b0e0bea866e584c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -606,7 +606,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2078338731}
-  - component: {fileID: 2078338733}
   - component: {fileID: 2078338732}
   m_Layer: 5
   m_Name: Grid
@@ -646,26 +645,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53cbc7ee1b664893b48e91d65da2843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xDim: 8
-  yDim: 8
+  xDim: 9
+  yDim: 9
   piecePrefabs:
   - type: 0
-    prefab: {fileID: 8516246772098464701, guid: 363c8041ba12349e984d0fb8e2779d8a, type: 3}
+    prefab: {fileID: 4906747386862669635, guid: 36fd903926ec2a44894bb864feff53ed, type: 3}
   backgroundPrefab: {fileID: 2447777149181275282, guid: 8aa625afe13f94f65ab833975b8d0fb8, type: 3}
   type: 0
-  prefab: {fileID: 8516246772098464701, guid: 363c8041ba12349e984d0fb8e2779d8a, type: 3}
---- !u!114 &2078338733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078338730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ae3f3e8dcd32462ba7e7f20eb7c603d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
 --- !u!1001 &6057916636469936572
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class Grid : MonoBehaviour
     };
 
     private Dictionary<PieceType, GameObject> piecePrefabDict;
-   
+    private GamePiece[,] pieces; 
       
     public int xDim;
     public int yDim;
@@ -28,29 +28,40 @@ public class Grid : MonoBehaviour
     public PieceType type;
     public GameObject prefab;
 
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         piecePrefabDict = new Dictionary<PieceType, GameObject>();
 
-        for(int i = 0; i < piecePrefabs.Length; ++i)
+        for(int i = 0; i < piecePrefabs.Length; i++)
         {
             if (!piecePrefabDict.ContainsKey(piecePrefabs[i].type))
             {
                 piecePrefabDict.Add(piecePrefabs[i].type, piecePrefabs[i].prefab);
             }
         }
-        for(int x=0; x<xDim; x++)
+
+        for(int x = 0; x < xDim; x++)
         {
-            for(int y=0; y < yDim; y++)
+            for(int y = 0; y < yDim; y++)
             {
-                GameObject background = (GameObject)Instantiate(backgroundPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                GameObject background = (GameObject)Instantiate(backgroundPrefab, GetWorldPosition(x, y), Quaternion.identity);
                 background.transform.parent = transform;
             }
         }
 
-
+        pieces = new GamePiece[xDim, yDim];
+        for (int x = 0; x < xDim; x++)
+        {
+            for (int y = 0; y < yDim; y++)
+            {
+                GameObject newPiece = (GameObject)Instantiate(piecePrefabDict[PieceType.NORMAL], GetWorldPosition(x, y), Quaternion.identity);
+                newPiece.name = "Piece(" + x + "," + y + ")";
+                newPiece.transform.parent = transform;
+                pieces[x,y] = newPiece.GetComponent<GamePiece>();
+                pieces[x,y].Init(x, y, this, PieceType.NORMAL);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -58,4 +69,13 @@ public class Grid : MonoBehaviour
     {
         
     }
+
+    Vector2 GetWorldPosition(int x, int y)
+    {
+        return new Vector2(
+        x - xDim / 2f + 0.5f,
+        y - yDim / 2f + 0.5f
+    );
+    }
+
 }
