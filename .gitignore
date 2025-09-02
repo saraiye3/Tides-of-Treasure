@@ -1,3 +1,4 @@
+# Unity
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -7,27 +8,25 @@
 MemoryCaptures/
 UserSettings/
 
+# Crash/Reports
+sysinfo.txt
+
 # OS
 .DS_Store
 Thumbs.db
 
-# Visual Studio / VS Code
+# IDEs
 .vscode/
+.idea/
+
+# VS / C# artifacts
+*.sln
 *.csproj
 *.unityproj
-*.sln
 *.suo
 *.tmp
 *.user
 *.userprefs
 *.pidb
 *.booproj
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-MemoryCaptures/
-UserSettings/
 
