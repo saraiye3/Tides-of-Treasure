@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7192541859069191739}
   - component: {fileID: 849505781607200684}
   - component: {fileID: 7651899897174021318}
+  - component: {fileID: -4189467799529463593}
+  - component: {fileID: 3270203192481869337}
   m_Layer: 0
   m_Name: yellow fish_0
   m_TagString: Untagged
@@ -56,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,3 +102,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec392f3ed7631c4681aabfd8f845a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4189467799529463593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906747386862669635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d973cdd19cca84c4eb06d53041d28d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3270203192481869337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906747386862669635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84632f9e55ff2a14e9a224c5f1a03182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorSprites:
+  - color: 0
+    sprite: {fileID: 6393978285550478372, guid: c4ef886c71ac8cf4a858f0580ed5f4b7, type: 3}
+  - color: 1
+    sprite: {fileID: 8127109018212209, guid: d325d97b729c6374e93f6c1172a1472a, type: 3}
+  - color: 2
+    sprite: {fileID: 724185537479822613, guid: 3ac0bf3750ebd8547aaeda7ae09ed237, type: 3}
+  - color: 3
+    sprite: {fileID: 871736940227568938, guid: 73379a39db715b9478a1e6131bedc608, type: 3}
+  - color: 4
+    sprite: {fileID: 512048520981482419, guid: 6818508ac141d614593b9d780728dd7e, type: 3}
+  - color: 5
+    sprite: {fileID: -4847018911287310091, guid: f71018985be31004fb53fee2c445718b, type: 3}

@@ -1,6 +1,6 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
@@ -55,11 +55,21 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < yDim; y++)
             {
-                GameObject newPiece = (GameObject)Instantiate(piecePrefabDict[PieceType.NORMAL], GetWorldPosition(x, y), Quaternion.identity);
+                GameObject newPiece = (GameObject)Instantiate(piecePrefabDict[PieceType.NORMAL], Vector3.zero, Quaternion.identity);
                 newPiece.name = "Piece(" + x + "," + y + ")";
                 newPiece.transform.parent = transform;
                 pieces[x,y] = newPiece.GetComponent<GamePiece>();
                 pieces[x,y].Init(x, y, this, PieceType.NORMAL);
+
+                if (pieces[x, y].IsMovable())
+                {
+                    pieces[x, y].MovableComponent.Move(x, y);
+                }
+
+                if (pieces[x, y].IsColored())
+                {
+                    pieces[x, y].ColorComponent.SetColor((ColorPiece.ColorType)Random.Range(0, pieces[x, y].ColorComponent.NumColors));
+                }
             }
         }
     }
@@ -70,7 +80,7 @@ public class Grid : MonoBehaviour
         
     }
 
-    Vector2 GetWorldPosition(int x, int y)
+    public Vector2 GetWorldPosition(int x, int y)
     {
         return new Vector2(
         x - xDim / 2f + 0.5f,
