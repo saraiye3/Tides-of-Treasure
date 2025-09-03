@@ -7,12 +7,20 @@ public class GamePiece : MonoBehaviour
 
     public int X
     {
-        get { return x; } 
+        get { return x; }
+        set
+        {
+            if (IsMovable()) { x = value; }
+        }
     }
 
     public int Y
     {
         get { return y; }
+        set
+        {
+            if (IsMovable()) { y = value; }
+        }
     }
 
     private Grid.PieceType type;
@@ -29,6 +37,27 @@ public class GamePiece : MonoBehaviour
         get { return grid; }
     }
 
+    private MovablePiece movableComponent;
+
+    public MovablePiece MovableComponent
+    {
+        get { return movableComponent; }
+    }
+
+    private ColorPiece colorComponent;
+
+    public ColorPiece ColorComponent
+    {
+        get { return colorComponent; }
+    }
+
+    void Awake()
+    {
+        movableComponent = GetComponent<MovablePiece>();
+        colorComponent = GetComponent<ColorPiece>();
+
+
+    }
     void Start()
     {
         
@@ -45,6 +74,18 @@ public class GamePiece : MonoBehaviour
         y = _y;
         grid = _grid;
         type = _type;
+    }
+
+
+    public bool IsMovable()
+    {
+        return movableComponent != null;
+    }
+
+
+    public bool IsColored()
+    {
+        return colorComponent != null;
     }
 }
 
