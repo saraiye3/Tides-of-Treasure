@@ -116,8 +116,9 @@ public class Grid : MonoBehaviour
                 inverse = !inverse;
                 yield return new WaitForSeconds(fillTime);
             }
+            needsRefill = ClearAllValidMatches();
         }
-        needsRefill = ClearAllValidMatches();
+        
     }
 
     public bool FillStep()
