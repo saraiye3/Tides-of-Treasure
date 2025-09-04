@@ -103,11 +103,19 @@ public class Grid : MonoBehaviour
 
     public IEnumerator Fill()
     {
-        while (FillStep())
+        bool needsRefill = true;
+        //all valid match return true
+        while (needsRefill)
         {
-            inverse = !inverse;
+            //give time between the clear
             yield return new WaitForSeconds(fillTime);
+            while (FillStep())
+            {
+                inverse = !inverse;
+                yield return new WaitForSeconds(fillTime);
+            }
         }
+        needsRefill = ClearAllValidMatches();
     }
 
     public bool FillStep()
@@ -229,6 +237,8 @@ public class Grid : MonoBehaviour
 
                 //call clear func
                 ClearAllValidMatches();
+                // fill func
+                StartCoroutine(Fill());
             }
             else
             {
