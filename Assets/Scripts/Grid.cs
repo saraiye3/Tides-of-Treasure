@@ -29,10 +29,12 @@ public class Grid : MonoBehaviour
     private bool inverse = false;
     private GamePiece pressedPiece;
     private GamePiece enteredPiece;
+    private bool gameOver = false;
 
     public int xDim;
     public int yDim;
     public float fillTime;
+    public Level level;
 
     public PiecePrefab[] piecePrefabs;
     public GameObject backgroundPrefab;
@@ -227,6 +229,9 @@ public class Grid : MonoBehaviour
 
     public void SwapPieces(GamePiece piece1, GamePiece piece2)
     {
+        if (gameOver)
+            return;
+
         if (piece1.IsMovable() && piece2.IsMovable())
         {
             pieces[piece1.X, piece1.Y] = piece2;
@@ -278,6 +283,7 @@ public class Grid : MonoBehaviour
 
                 // fill func
                 StartCoroutine(Fill());
+                level.OnMove();
             }
             else
             {
@@ -578,5 +584,10 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void GameOver()
+    {
+        gameOver = true;
     }
 }
