@@ -54,7 +54,7 @@ public class GamePiece : MonoBehaviour
     //referance to clearablepiece
     private ClearablePiece clearableComponent;
 
-    public ClearablePiece Clearableomponent
+    public ClearablePiece ClearableComponent
     {
         get { return clearableComponent; }
     }
