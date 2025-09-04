@@ -433,9 +433,39 @@ public class Grid : MonoBehaviour
         {
             pieces[x, y].Clearableomponent.Clear();
             SpawnNewPiece(x, y, PieceType.EMPTY);
+
+            ClearObstacles(x, y);
+
             return true;
 
         }
         return false;
+    }
+    public void ClearObstacles(int x,int y)
+    {
+        for(int adjacentX = x-1; adjacentX<= x+1; adjacentX++)
+        {
+            if(adjacentX!= x && adjacentX>=0 && adjacentX < xDim)
+            {
+                if (pieces[adjacentX,y].Type==PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
+                {
+                    pieces[adjacentX, y].Clearableomponent.Clear();
+                    SpawnNewPiece(adjacentX, y, PieceType.EMPTY);
+                }
+            }
+        }
+        for (int adjacentY = y - 1; adjacentY <= y + 1; adjacentY++)
+        {
+            if (adjacentY != y && adjacentY >= 0 && adjacentY < yDim)
+            {
+                if (pieces[x, adjacentY].Type == PieceType.BUBBLE && pieces[x, adjacentY].IsClearable())
+                {
+                    pieces[x, adjacentY].Clearableomponent.Clear();
+                    SpawnNewPiece(x, adjacentY, PieceType.EMPTY);
+                }
+            }
+        }
+
+
     }
 }
