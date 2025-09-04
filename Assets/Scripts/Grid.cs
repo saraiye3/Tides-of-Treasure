@@ -481,21 +481,20 @@ public class Grid : MonoBehaviour
         return needsRefill;
     }
 
-
     public bool ClearPiece(int x , int y)
     {
-        if (pieces[x, y].IsClearable() && !pieces[x, y].Clearableomponent.IsBeingCleared)
+        if (pieces[x, y].IsClearable() && !pieces[x, y].ClearableComponent.IsBeingCleared)
         {
-            pieces[x, y].Clearableomponent.Clear();
+            pieces[x, y].ClearableComponent.Clear();
             SpawnNewPiece(x, y, PieceType.EMPTY);
-
             ClearObstacles(x, y);
 
             return true;
-
         }
+
         return false;
     }
+
     public void ClearObstacles(int x,int y)
     {
         for(int adjacentX = x-1; adjacentX<= x+1; adjacentX++)
@@ -504,23 +503,34 @@ public class Grid : MonoBehaviour
             {
                 if (pieces[adjacentX,y].Type==PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
                 {
-                    pieces[adjacentX, y].Clearableomponent.Clear();
+                    pieces[adjacentX, y].ClearableComponent.Clear();
                     SpawnNewPiece(adjacentX, y, PieceType.EMPTY);
                 }
             }
         }
+
         for (int adjacentY = y - 1; adjacentY <= y + 1; adjacentY++)
         {
             if (adjacentY != y && adjacentY >= 0 && adjacentY < yDim)
             {
                 if (pieces[x, adjacentY].Type == PieceType.BUBBLE && pieces[x, adjacentY].IsClearable())
                 {
-                    pieces[x, adjacentY].Clearableomponent.Clear();
+                    pieces[x, adjacentY].ClearableComponent.Clear();
                     SpawnNewPiece(x, adjacentY, PieceType.EMPTY);
                 }
             }
         }
+    }
 
+    public void ClearRow(int row)
+    {
+        for (int x = 0; x < xDim; x++)
+            ClearPiece(x, row);
+    }
 
+    public void ClearColumn(int column)
+    {
+        for(int y = 0;  y < yDim; y++)
+            ClearPiece(column, y);
     }
 }

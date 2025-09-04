@@ -54,7 +54,7 @@ public class GamePiece : MonoBehaviour
     //referance to clearablepiece
     private ClearablePiece clearableComponent;
 
-    public ClearablePiece Clearableomponent
+    public ClearablePiece ClearableComponent
     {
         get { return clearableComponent; }
     }
@@ -64,8 +64,6 @@ public class GamePiece : MonoBehaviour
         movableComponent = GetComponent<MovablePiece>();
         colorComponent = GetComponent<ColorPiece>();
         clearableComponent = GetComponent<ClearablePiece>();
-
-
     }
     void Start()
     {
@@ -105,11 +103,11 @@ public class GamePiece : MonoBehaviour
         return movableComponent != null;
     }
 
-
     public bool IsColored()
     {
         return colorComponent != null;
     }
+
     public bool IsClearable()
     {
         return clearableComponent != null;

@@ -3,14 +3,14 @@ using System.Collections;
 
 public class ClearablePiece : MonoBehaviour
 {
-    //animation var (we need to used them later)
+    //animation var (we need to use them later)
     public AnimationClip clearAnimation;
 
     private bool isBeingCleared = false;
 
     public bool IsBeingCleared { get { return isBeingCleared; } }
 
-    //piece acsses
+    //piece access
     protected GamePiece piece;
 
     void Awake()
@@ -29,17 +29,16 @@ public class ClearablePiece : MonoBehaviour
     {
         
     }
-    public void Clear()
+
+    public virtual void Clear()
     {
         isBeingCleared = true;
         StartCoroutine(ClearCoroutine());
     }
 
-
     //this func(coroutine type) plays a "clear" animation on the object,
     //waits for the animation to finish, and then destroys the object.
     //Using IEnumerator and yield allows the function to pause during the animation instead of executing everything immediately.
-
     private IEnumerator ClearCoroutine()
     {
         Animator animator = GetComponent<Animator>();
