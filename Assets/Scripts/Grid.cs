@@ -100,6 +100,15 @@ public class Grid : MonoBehaviour
         pieces[x, y] = newPiece.GetComponent<GamePiece>();
         pieces[x, y].Init(x, y, this, type);
 
+        var sr = newPiece.GetComponent<SpriteRenderer>();
+        var gp = pieces[x, y];
+        if (type == PieceType.NORMAL && gp.ColorComponent != null && sr != null && sr.sprite == null)
+        {
+            gp.ColorComponent.SetColor(
+                (ColorPiece.ColorType)Random.Range(0, gp.ColorComponent.NumColors)
+            );
+        }
+
         return pieces[x, y];
     }
 
@@ -223,6 +232,7 @@ public class Grid : MonoBehaviour
 
     public bool IsAdjacent(GamePiece piece1, GamePiece piece2)
     {
+        if (piece1 == null || piece2 == null) return false;
         return (piece1.X == piece2.X && Mathf.Abs(piece1.Y - piece2.Y) == 1)
             || (piece1.Y == piece2.Y && Mathf.Abs(piece1.X - piece2.X) == 1);
     }
@@ -246,6 +256,7 @@ public class Grid : MonoBehaviour
                 piece1.MovableComponent.Move(piece2.X, piece2.Y, fillTime);
                 piece2.MovableComponent.Move(piece1X, piece1Y, fillTime);
 
+
                 //If one is a rainbow and the other is a regular color fish type - it's a match
                 if (piece1.Type == PieceType.RAINBOW && piece1.IsClearable() && piece2.IsColored()) 
                 {
@@ -265,8 +276,7 @@ public class Grid : MonoBehaviour
                     ClearPiece(piece2.X, piece2.Y);
                 }
 
-                //call clear func
-                ClearAllValidMatches();
+
 
                 if (piece1.Type == PieceType.ROW_CLEAR || piece1.Type == PieceType.COLUMN_CLEAR)
                 {
@@ -281,6 +291,9 @@ public class Grid : MonoBehaviour
                 pressedPiece = null;
                 enteredPiece = null;
 
+
+                //call clear func
+                ClearAllValidMatches();
                 // fill func
                 StartCoroutine(Fill());
                 level.OnMove();
