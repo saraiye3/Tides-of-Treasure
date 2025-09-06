@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: c89a04d10e9409042a1ad59ab2aed088
+guid: e1d362b4d2c2c394ab6d8e81d2fff967
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5805110117635960120
-    second: stars3_0
-  - first:
-      213: 34776736634227778
-    second: stars3_1
-  - first:
-      213: -7707717555850910441
-    second: stars3_2
+      213: 9184959684750031955
+    second: arrow_left_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,67 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stars3_0
+      name: arrow_left_0
       rect:
         serializedVersion: 2
-        x: 42
-        y: 94
-        width: 970
-        height: 842
+        x: 0
+        y: 0
+        width: 488
+        height: 376
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c25844da1b107fa0800000000000000
-      internalID: -5805110117635960120
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stars3_1
-      rect:
-        serializedVersion: 2
-        x: 366
-        y: 396
-        width: 300
-        height: 294
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 24cc789f14d8b7000800000000000000
-      internalID: 34776736634227778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stars3_2
-      rect:
-        serializedVersion: 2
-        x: 656
-        y: 366
-        width: 273
-        height: 269
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 715e67e58bfa80590800000000000000
-      internalID: -7707717555850910441
+      spriteID: 35c3fc55b28877f70800000000000000
+      internalID: 9184959684750031955
       vertices: []
       indices: 
       edges: []
@@ -188,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0317ea8a36223984d86ffd6bef985536
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stars3_0: -5805110117635960120
-      stars3_1: 34776736634227778
-      stars3_2: -7707717555850910441
+      arrow_left_0: 9184959684750031955
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

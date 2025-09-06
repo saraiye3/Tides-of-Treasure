@@ -10,6 +10,7 @@ public class Level : MonoBehaviour
     };
 
     public Grid grid;
+    public HUD hud;
     public int score1Star;
     public int score2Star;
     public int score3Star;
@@ -21,6 +22,7 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
+        hud.SetScore(currentScore);
         
     }
 
@@ -32,12 +34,14 @@ public class Level : MonoBehaviour
     public virtual void GameWin()
     {
         Debug.Log("You win!");
+        hud.OnGameWin(currentScore);
         grid.GameOver();
     }
 
     public virtual void GameLose()
     {
         Debug.Log("You lose.");
+        hud.OnGameLose();
         grid.GameOver();
     }
 
@@ -50,5 +54,6 @@ public class Level : MonoBehaviour
     {
         currentScore += piece.score;
         Debug.Log("Score: " + currentScore);
+        hud.SetScore(currentScore);
     }
 }

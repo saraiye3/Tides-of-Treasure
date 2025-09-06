@@ -10,8 +10,11 @@ public class LevelMoves : Level
     private void Start()
     {
         type = LevelType.MOVES;
+        hud.SetLevelType(type);
+        hud.SetScore(currentScore);
+        hud.SetTarget(targetScore);
+        hud.SetRemaining(numMoves);
 
-        Debug.Log("Number of moves: " + numMoves + "Target score:" + targetScore);
     }
 
     private void Update()
@@ -22,8 +25,7 @@ public class LevelMoves : Level
     public override void OnMove()
     {
         movesUsed++;
-        Debug.Log("Moves remaining:" + (numMoves - movesUsed));
-
+        hud.SetRemaining(numMoves - movesUsed);
         if (numMoves - movesUsed == 0) //If no moves left
         {
             if (currentScore >= targetScore)
