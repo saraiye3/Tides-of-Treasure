@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Level : MonoBehaviour 
 {
@@ -10,6 +11,7 @@ public class Level : MonoBehaviour
     };
 
     public Grid grid;
+    public HUD hud;
     public int score1Star;
     public int score2Star;
     public int score3Star;
@@ -19,8 +21,12 @@ public class Level : MonoBehaviour
 
     public LevelType Type { get { return type; } }
 
+
+    protected bool didWin;
+
     private void Start()
     {
+        hud.SetScore(currentScore);
         
     }
 
@@ -31,14 +37,21 @@ public class Level : MonoBehaviour
 
     public virtual void GameWin()
     {
-        Debug.Log("You win!");
+        //Debug.Log("You win!");
+        //hud.OnGameWin(currentScore);
         grid.GameOver();
+        didWin = true;
+        StartCoroutine(WaitForGridFill());
     }
 
     public virtual void GameLose()
     {
-        Debug.Log("You lose.");
+        //Debug.Log("You lose.");
+        //hud.OnGameLose();
         grid.GameOver();
+        didWin = false;
+        StartCoroutine(WaitForGridFill());
+
     }
 
     public virtual void OnMove()
@@ -50,5 +63,23 @@ public class Level : MonoBehaviour
     {
         currentScore += piece.score;
         Debug.Log("Score: " + currentScore);
+        hud.SetScore(currentScore);
+    }
+
+    protected virtual IEnumerator WaitForGridFill()
+    {
+        while (grid.IsFilling)
+        {
+            yield return 0;
+
+        }
+        if (didWin)
+        {
+            hud.OnGameWin(currentScore);
+        }
+        else
+        {
+            hud.OnGameLose();
+        }
     }
 }
