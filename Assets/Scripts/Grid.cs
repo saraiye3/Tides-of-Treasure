@@ -48,6 +48,12 @@ public class Grid : MonoBehaviour
     public GameObject backgroundPrefab;
     public PiecePosition[] initialPieces;
 
+    private bool isFilling = false;
+    public bool IsFilling
+    {
+        get { return isFilling;  }
+    }
+
     private void Awake()
     {
         piecePrefabDict = new Dictionary<PieceType, GameObject>();
@@ -112,6 +118,8 @@ public class Grid : MonoBehaviour
     {
         bool needsRefill = true;
         //all valid match return true
+        isFilling = true;
+
         while (needsRefill)
         {
             //give time between the clear
@@ -123,6 +131,7 @@ public class Grid : MonoBehaviour
             }
             needsRefill = ClearAllValidMatches();
         }
+        isFilling = false;
         
     }
 
