@@ -116,10 +116,10 @@ public class HUD : MonoBehaviour
     public void OnGameWin(int score)
     {
         gameOver.ShowWin(score, starIdx);
-
     }
     public void OnGameLose()
     {
         gameOver.ShowLose();
+
     }
 }
