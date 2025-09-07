@@ -41,7 +41,6 @@ public class ColorPiece : MonoBehaviour
     private SpriteRenderer sprite;
     private Dictionary<ColorType, Sprite> colorSpriteDict;
 
-
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -68,6 +67,7 @@ public class ColorPiece : MonoBehaviour
     {
 
     }
+
     public void SetColor(ColorType newColor)
     {
         color = newColor;
@@ -76,7 +76,5 @@ public class ColorPiece : MonoBehaviour
         {
             sprite.sprite = colorSpriteDict[newColor];
         }
-
     }
-
 }

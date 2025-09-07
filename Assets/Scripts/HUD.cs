@@ -2,21 +2,16 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 
-
 public class HUD : MonoBehaviour
 {
-
     public Level level;
-
     public GameOver gameOver;
-
     public TMP_Text remainingText;
     public TMP_Text remainingSubtext;
     public TMP_Text targetText;
     public TMP_Text targetSubtext;
     public TMP_Text scoreText;
     public UnityEngine.UI.Image[] stars;
-
 
     private int starIdx = 0;
 
@@ -111,8 +106,6 @@ public class HUD : MonoBehaviour
         }
     }
 
- 
-
     public void OnGameWin(int score)
     {
         gameOver.ShowWin(score, starIdx);
@@ -120,6 +113,5 @@ public class HUD : MonoBehaviour
     public void OnGameLose()
     {
         gameOver.ShowLose();
-
     }
 }

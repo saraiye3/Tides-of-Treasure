@@ -22,7 +22,6 @@ public class LevelObstacles : Level
         hud.SetRemaining(numMoves);
     }
 
-    
     private void Update()
     {
         
