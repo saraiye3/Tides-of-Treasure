@@ -165,6 +165,8 @@ GameObject:
   - component: {fileID: 464320572}
   - component: {fileID: 464320574}
   - component: {fileID: 464320573}
+  - component: {fileID: 464320576}
+  - component: {fileID: 464320575}
   m_Layer: 5
   m_Name: boat
   m_TagString: Untagged
@@ -188,7 +190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -187, y: -832}
+  m_AnchoredPosition: {x: -200, y: -839.3}
   m_SizeDelta: {x: 314.4899, y: 358.9255}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &464320573
@@ -229,6 +231,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464320571}
   m_CullTransparentMesh: 1
+--- !u!114 &464320575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464320571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 3
+--- !u!114 &464320576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464320571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 464320573}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &509541991
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +380,7 @@ GameObject:
   - component: {fileID: 532277238}
   - component: {fileID: 532277237}
   - component: {fileID: 532277240}
+  - component: {fileID: 532277241}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -344,7 +404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 207.81995, y: 219.82202}
+  m_AnchoredPosition: {x: 201, y: 223}
   m_SizeDelta: {x: 294.76, y: 340.7294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &532277237
@@ -366,7 +426,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -453,10 +513,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57a2e79caa554bbd8cdf0f91047dfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoint: {fileID: 741930264}
+  stageIndex: 3
   boatMover: {fileID: 1843442366}
   isFinalStage: 1
   sceneToLoad: level3
+--- !u!114 &532277241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532277235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 3
 --- !u!1 &741930263
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 189, y: 123}
+  m_AnchoredPosition: {x: 189, y: 102}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &868189118
@@ -712,6 +785,7 @@ GameObject:
   - component: {fileID: 1649037000}
   - component: {fileID: 1649036999}
   - component: {fileID: 1649037002}
+  - component: {fileID: 1649037003}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -757,7 +831,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -844,10 +918,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57a2e79caa554bbd8cdf0f91047dfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoint: {fileID: 868189119}
+  stageIndex: 2
   boatMover: {fileID: 1843442366}
   isFinalStage: 0
   sceneToLoad: level2
+--- !u!114 &1649037003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649036997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 2
 --- !u!1 &1825530546
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +1023,7 @@ GameObject:
   - component: {fileID: 1843442363}
   - component: {fileID: 1843442362}
   - component: {fileID: 1843442366}
+  - component: {fileID: 1843442367}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1048,6 +1136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boat: {fileID: 464320572}
   treasureWaypoint: {fileID: 1430184087}
+  stageWaypoints:
+  - {fileID: 318434511}
+  - {fileID: 868189119}
+  - {fileID: 741930264}
   moveDuration: 1.2
   ease:
     serializedVersion: 2
@@ -1073,6 +1165,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1843442367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843442361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b311e67d60f43beacaffed7f3e7d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2110041240
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1190,7 @@ GameObject:
   - component: {fileID: 2110041243}
   - component: {fileID: 2110041242}
   - component: {fileID: 2110041245}
+  - component: {fileID: 2110041246}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -1218,10 +1323,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57a2e79caa554bbd8cdf0f91047dfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoint: {fileID: 318434511}
+  stageIndex: 1
   boatMover: {fileID: 1843442366}
   isFinalStage: 0
   sceneToLoad: level1
+--- !u!114 &2110041246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110041240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageIndex: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
