@@ -465,7 +465,7 @@ public class Grid : MonoBehaviour
         return null;
     }
 
-    //this func check if the player do matce, clear the pieces and refill the board.
+    //this func checks if the player do matce, clear the pieces and refill the board.
     public bool ClearAllValidMatches()
     {
         bool needsRefill = false;
@@ -500,7 +500,7 @@ public class Grid : MonoBehaviour
                                 specialPieceType = PieceType.COLUMN_CLEAR; }
                         }
 
-                        else if(match.Count >= 5)
+                        else if(match.Count >= 6)
                         {
                             specialPieceType = PieceType.RAINBOW;
                         }

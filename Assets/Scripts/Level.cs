@@ -51,7 +51,6 @@ public class Level : MonoBehaviour
         grid.GameOver();
         didWin = false;
         StartCoroutine(WaitForGridFill());
-
     }
 
     public virtual void OnMove()
