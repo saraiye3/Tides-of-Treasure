@@ -1014,6 +1014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1421946172}
   - component: {fileID: 1421946173}
+  - component: {fileID: 1421946174}
   m_Layer: 5
   m_Name: Hammer
   m_TagString: Untagged
@@ -1056,6 +1057,29 @@ MonoBehaviour:
   grid: {fileID: 2078338732}
   screenParent: {fileID: 948326380}
   hammer_text: {fileID: 2056097808}
+  animator: {fileID: 1421946174}
+--- !u!95 &1421946174
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421946171}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3717e1b6a02cd314ebb54eeb0f211f39, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1492267814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,7 +1129,7 @@ MonoBehaviour:
   score1Star: 30000
   score2Star: 50000
   score3Star: 65000
-  numMoves: 15
+  numMoves: 2
   targetScore: 30000
 --- !u!114 &1661182680 stripped
 MonoBehaviour:

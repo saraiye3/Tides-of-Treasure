@@ -6,6 +6,7 @@ public class Hammer : MonoBehaviour
     public Grid grid;
     public GameObject screenParent;
     public TMP_Text hammer_text;
+    public Animator animator;
 
     private void Start()
     {
@@ -15,6 +16,9 @@ public class Hammer : MonoBehaviour
     public void ShowHammer()
     {
         screenParent.SetActive(true);
+
+        if (animator)
+            animator.Play("HammerShow");
     }
 
     public void OnHammerClicked()
