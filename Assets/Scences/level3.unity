@@ -635,6 +635,7 @@ MonoBehaviour:
   - {fileID: 1993469756}
   - {fileID: 1054460966}
   - {fileID: 879600843}
+  animator: {fileID: 479052241}
   currentStageIndex: 1
 --- !u!95 &479052241
 Animator:
