@@ -12,10 +12,9 @@ public class GameOver : MonoBehaviour
         public TMP_Text scoreText;
         public UnityEngine.UI.Image[] stars;
 
-
         public int currentStageIndex =  1;
 
-    private void Start()
+        private void Start()
         {
             screenParent.SetActive(false);
 
@@ -88,5 +87,4 @@ public class GameOver : MonoBehaviour
             LevelProgress.UnlockUpTo(currentStageIndex + 1);// open the next level
             UnityEngine.SceneManagement.SceneManager.LoadScene("menuScene");
         }
-
     }
