@@ -1136,6 +1136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boat: {fileID: 464320572}
   treasureWaypoint: {fileID: 1430184087}
+  finalStageIndex: 3
+  autoSailToTreasureWhenAtFinal: 1
   stageWaypoints:
   - {fileID: 318434511}
   - {fileID: 868189119}
@@ -1214,7 +1216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 224, y: -530.2306}
+  m_AnchoredPosition: {x: 217, y: -537}
   m_SizeDelta: {x: 262.4, y: 259.2071}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110041242

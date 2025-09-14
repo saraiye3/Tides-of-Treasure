@@ -8,6 +8,10 @@ public class BoatUIMovement : MonoBehaviour
     public RectTransform boat;
     public RectTransform treasureWaypoint;
 
+    [SerializeField] private int finalStageIndex = 3; // 1-based: אחרי שלב 3 CurrentStageIndex == 3
+    [SerializeField] private bool autoSailToTreasureWhenAtFinal = true;
+
+
     [Header("Path (ordered)")]
     // NEW: waypoints per stage in order (index 0 = Stage 1, index 1 = Stage 2, ...)
     public RectTransform[] stageWaypoints;
@@ -32,7 +36,6 @@ public class BoatUIMovement : MonoBehaviour
 
     void Start()
     {
-        // NEW: load boat position & current stage from PlayerPrefs (if exists)
         if (BoatState.TryLoad(out var pos, out var stage))
         {
             CurrentStageIndex = Mathf.Clamp(stage, 0, stageWaypoints != null ? stageWaypoints.Length : 0);
@@ -43,6 +46,18 @@ public class BoatUIMovement : MonoBehaviour
             CurrentStageIndex = 0;
             if (boat != null) boat.anchoredPosition = defaultPos;
         }
+
+        // NEW: אם כבר בשלב הסופי – לשוט אוטומטית לתיבה
+        if (autoSailToTreasureWhenAtFinal && CurrentStageIndex >= finalStageIndex && treasureWaypoint != null)
+        {
+            StartCoroutine(AutoSailToTreasureNextFrame());
+        }
+    }
+
+    private IEnumerator AutoSailToTreasureNextFrame()
+    {
+        yield return null;
+        MoveToTreasure();
     }
 
     // -----------------------------------------------------------------------
