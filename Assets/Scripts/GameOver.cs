@@ -11,11 +11,11 @@ public class GameOver : MonoBehaviour
         public TMP_Text loseText;
         public TMP_Text scoreText;
         public UnityEngine.UI.Image[] stars;
-
+        public Animator animator;
 
         public int currentStageIndex =  1;
 
-    private void Start()
+        private void Start()
         {
             screenParent.SetActive(false);
 
@@ -30,8 +30,6 @@ public class GameOver : MonoBehaviour
             screenParent.SetActive(true);
             scoreParent.SetActive(false);
 
-            Animator animator = GetComponent<Animator>();
-
             if (animator)
             {
                 animator.Play("GameOverShow");
@@ -45,8 +43,6 @@ public class GameOver : MonoBehaviour
 
             scoreText.text = score.ToString();
             scoreText.enabled = false;
-
-            Animator animator = GetComponent<Animator>();
 
             if (animator)
             {
@@ -88,5 +84,4 @@ public class GameOver : MonoBehaviour
             LevelProgress.UnlockUpTo(currentStageIndex + 1);// open the next level
             UnityEngine.SceneManagement.SceneManager.LoadScene("menuScene");
         }
-
     }

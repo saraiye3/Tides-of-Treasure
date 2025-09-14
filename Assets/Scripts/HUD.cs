@@ -4,6 +4,7 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
+    public Hammer hammer;
     public Level level;
     public GameOver gameOver;
     public TMP_Text remainingText;
@@ -15,8 +16,7 @@ public class HUD : MonoBehaviour
 
     private int starIdx = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         for (int i = 0; i < stars.Length; i++)
         {
@@ -32,8 +32,7 @@ public class HUD : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
@@ -97,7 +96,7 @@ public class HUD : MonoBehaviour
         else if (type == Level.LevelType.OBSTACLE)
         {
             remainingSubtext.text = "moves remaining";
-            targetSubtext.text = "bubbles remaining";
+            targetSubtext.text = "keys remaining";
         }
         else if (type == Level.LevelType.TIMER)
         {
@@ -110,8 +109,15 @@ public class HUD : MonoBehaviour
     {
         gameOver.ShowWin(score, starIdx);
     }
+
     public void OnGameLose()
     {
-        gameOver.ShowLose();
+        if(level is LevelMoves movesLevel && !movesLevel.HammerUsed)
+        {
+            hammer.ShowHammer();
+            movesLevel.HammerUsed = true;
+        }
+        else
+            gameOver.ShowLose();
     }
 }

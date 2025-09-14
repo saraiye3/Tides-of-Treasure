@@ -38,6 +38,7 @@ public class Grid : MonoBehaviour
     private GamePiece pressedPiece;
     private GamePiece enteredPiece;
     private bool gameOver = false;
+    private bool hammerMode = false;
 
     public int xDim;
     public int yDim;
@@ -286,8 +287,6 @@ public class Grid : MonoBehaviour
                     ClearPiece(piece2.X, piece2.Y);
                 }
 
-
-
                 if (piece1.Type == PieceType.ROW_CLEAR || piece1.Type == PieceType.COLUMN_CLEAR)
                 {
                     ClearPiece(piece1.X, piece1.Y);
@@ -300,7 +299,6 @@ public class Grid : MonoBehaviour
 
                 pressedPiece = null;
                 enteredPiece = null;
-
 
                 //call clear func
                 ClearAllValidMatches();
@@ -328,8 +326,20 @@ public class Grid : MonoBehaviour
 
     public void ReleasePiece()
     {
-        if (IsAdjacent(pressedPiece, enteredPiece))
+        if (hammerMode && pressedPiece != null)
+        {
+            ClearPiece(pressedPiece.X, pressedPiece.Y);
+            ClearAllValidMatches();
+            StartCoroutine(Fill());
+            level.OnMove();
+
+            hammerMode = false;
+            pressedPiece = null;
+        }
+        else if (IsAdjacent(pressedPiece, enteredPiece))
+        {
             SwapPieces(pressedPiece, enteredPiece);
+        }
     }
 
     public List<GamePiece> GetMatch(GamePiece piece, int newX, int newY)
@@ -465,7 +475,7 @@ public class Grid : MonoBehaviour
         return null;
     }
 
-    //this func check if the player do matce, clear the pieces and refill the board.
+    //this func check if the player do match, clear the pieces and refill the board.
     public bool ClearAllValidMatches()
     {
         bool needsRefill = false;
@@ -499,8 +509,7 @@ public class Grid : MonoBehaviour
                             {
                                 specialPieceType = PieceType.COLUMN_CLEAR; }
                         }
-
-                        else if(match.Count >= 5)
+                        else if(match.Count >= 6)
                         {
                             specialPieceType = PieceType.RAINBOW;
                         }
@@ -539,6 +548,7 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+
         return needsRefill;
     }
 
@@ -558,11 +568,11 @@ public class Grid : MonoBehaviour
 
     public void ClearObstacles(int x,int y)
     {
-        for(int adjacentX = x-1; adjacentX<= x+1; adjacentX++)
+        for(int adjacentX = x-1; adjacentX <= x+1; adjacentX++)
         {
-            if(adjacentX!= x && adjacentX>=0 && adjacentX < xDim)
+            if(adjacentX != x && adjacentX >=0 && adjacentX < xDim)
             {
-                if (pieces[adjacentX,y].Type==PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
+                if (pieces[adjacentX,y].Type == PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
                 {
                     pieces[adjacentX, y].ClearableComponent.Clear();
                     SpawnNewPiece(adjacentX, y, PieceType.EMPTY);
@@ -625,4 +635,10 @@ public class Grid : MonoBehaviour
 
         return piecesOfType;
     }
+
+    public void EnableHammerMode()
+    {
+        hammerMode = true;
+    }
+
 }
