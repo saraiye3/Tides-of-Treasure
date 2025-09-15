@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HUD : MonoBehaviour
 {
@@ -119,5 +120,10 @@ public class HUD : MonoBehaviour
         }
         else
             gameOver.ShowLose();
+    }
+
+    public void OnReturnClicked()
+    {
+        SceneManager.LoadScene("menuScene");
     }
 }
