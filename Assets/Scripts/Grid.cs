@@ -27,7 +27,7 @@ public class Grid : MonoBehaviour
     {
         public PieceType type;
         public int x;
-        public int y;   
+        public int y;
     }
 
     private Dictionary<PieceType, GameObject> piecePrefabDict;
@@ -47,10 +47,16 @@ public class Grid : MonoBehaviour
     public GameObject backgroundPrefab;
     public PiecePosition[] initialPieces;
 
+    // Bomb Booster System
+    [Header("Bomb Booster System")]
+    public int matchesOf5PlusThisLevel = 0;
+    public int requiredMatchesForBombBooster = 5;
+    private bool bombBoosterMode = false;
+
     private bool isFilling = false;
     public bool IsFilling
     {
-        get { return isFilling;  }
+        get { return isFilling; }
     }
 
     private void Awake()
@@ -76,9 +82,9 @@ public class Grid : MonoBehaviour
 
         pieces = new GamePiece[xDim, yDim];
 
-        for(int i = 0; i < initialPieces.Length; i++)
+        for (int i = 0; i < initialPieces.Length; i++)
         {
-            if (initialPieces[i].x >= 0 && initialPieces[i].x < xDim 
+            if (initialPieces[i].x >= 0 && initialPieces[i].x < xDim
                 && initialPieces[i].y >= 0 && initialPieces[i].y < yDim)
             {
                 SpawnNewPiece(initialPieces[i].x, initialPieces[i].y, initialPieces[i].type);
@@ -125,12 +131,10 @@ public class Grid : MonoBehaviour
     public IEnumerator Fill()
     {
         bool needsRefill = true;
-        //all valid match return true
         isFilling = true;
 
         while (needsRefill)
         {
-            //give time between the clear
             yield return new WaitForSeconds(fillTime);
             while (FillStep())
             {
@@ -140,7 +144,6 @@ public class Grid : MonoBehaviour
             needsRefill = ClearAllValidMatches();
         }
         isFilling = false;
-        
     }
 
     public bool FillStep()
@@ -265,9 +268,7 @@ public class Grid : MonoBehaviour
                 piece1.MovableComponent.Move(piece2.X, piece2.Y, fillTime);
                 piece2.MovableComponent.Move(piece1X, piece1Y, fillTime);
 
-
-                //If one is a rainbow and the other is a regular color fish type - it's a match
-                if (piece1.Type == PieceType.RAINBOW && piece1.IsClearable() && piece2.IsColored()) 
+                if (piece1.Type == PieceType.RAINBOW && piece1.IsClearable() && piece2.IsColored())
                 {
                     ClearColorPiece clearColor = piece1.GetComponent<ClearColorPiece>();
                     if (clearColor)
@@ -298,9 +299,7 @@ public class Grid : MonoBehaviour
                 pressedPiece = null;
                 enteredPiece = null;
 
-                //call clear func
                 ClearAllValidMatches();
-                // fill func
                 StartCoroutine(Fill());
                 level.OnMove();
             }
@@ -332,6 +331,17 @@ public class Grid : MonoBehaviour
             level.OnMove();
 
             hammerMode = false;
+            pressedPiece = null;
+        }
+        else if (bombBoosterMode && pressedPiece != null)
+        {
+            // Use bomb booster at selected position
+            ExplodeBombAt(pressedPiece.X, pressedPiece.Y);
+            ClearAllValidMatches();
+            StartCoroutine(Fill());
+            level.OnMove();
+
+            bombBoosterMode = false;
             pressedPiece = null;
         }
         else if (IsAdjacent(pressedPiece, enteredPiece))
@@ -473,52 +483,64 @@ public class Grid : MonoBehaviour
         return null;
     }
 
-    //this func check if the player do match, clear the pieces and refill the board.
+    // Check for matches and award bomb boosters when appropriate
     public bool ClearAllValidMatches()
     {
         bool needsRefill = false;
 
-        for(int y = 0; y < yDim; y++)
+        for (int y = 0; y < yDim; y++)
         {
-            for(int x=0; x < xDim; x++)
+            for (int x = 0; x < xDim; x++)
             {
                 if (pieces[x, y].IsClearable())
                 {
                     List<GamePiece> match = GetMatch(pieces[x, y], x, y);
 
-                    if(match != null)
+                    if (match != null)
                     {
+                        // Track matches of 5+ for bomb booster system
+                        if (match.Count >= 5)
+                        {
+                            matchesOf5PlusThisLevel++;
+                            Debug.Log("Match of " + match.Count + "! Total 5+ matches this level: " + matchesOf5PlusThisLevel);
+
+                            // Check if player earned a bomb booster
+                            CheckAndAwardBombBooster();
+                        }
+
                         PieceType specialPieceType = PieceType.COUNT;
                         GamePiece randomPiece = match[Random.Range(0, match.Count)];
 
                         int specialPieceX = randomPiece.X;
                         int specialPieceY = randomPiece.Y;
 
-                        if(match.Count == 4)
+                        if (match.Count == 4)
                         {
-                            if(pressedPiece == null || enteredPiece == null)
+                            if (pressedPiece == null || enteredPiece == null)
                             {
                                 specialPieceType = (PieceType)Random.Range((int)PieceType.ROW_CLEAR, (int)PieceType.COLUMN_CLEAR);
                             }
-                            else if(pressedPiece.Y == enteredPiece.Y)
+                            else if (pressedPiece.Y == enteredPiece.Y)
                             {
-                                specialPieceType = PieceType.ROW_CLEAR;}
+                                specialPieceType = PieceType.ROW_CLEAR;
+                            }
                             else
                             {
-                                specialPieceType = PieceType.COLUMN_CLEAR; }
+                                specialPieceType = PieceType.COLUMN_CLEAR;
+                            }
                         }
-                        else if(match.Count >= 6)
+                        else if (match.Count >= 6)
                         {
                             specialPieceType = PieceType.RAINBOW;
                         }
 
-                        for (int i=0; i<match.Count; i++)
+                        for (int i = 0; i < match.Count; i++)
                         {
                             if (ClearPiece(match[i].X, match[i].Y))
                             {
-                                needsRefill = true ;
+                                needsRefill = true;
 
-                                if (match[i]==pressedPiece || match[i] == enteredPiece)
+                                if (match[i] == pressedPiece || match[i] == enteredPiece)
                                 {
                                     specialPieceX = match[i].X;
                                     specialPieceY = match[i].Y;
@@ -535,7 +557,7 @@ public class Grid : MonoBehaviour
                                     {
                                         newPiece.ColorComponent.SetColor(match[0].ColorComponent.Color);
                                     }
-                                    else if(specialPieceType == PieceType.RAINBOW && newPiece.IsColored())
+                                    else if (specialPieceType == PieceType.RAINBOW && newPiece.IsColored())
                                     {
                                         newPiece.ColorComponent.SetColor(ColorPiece.ColorType.ANY);
                                     }
@@ -550,7 +572,60 @@ public class Grid : MonoBehaviour
         return needsRefill;
     }
 
-    public bool ClearPiece(int x , int y)
+    // Check and award bomb booster when requirements are met
+    private void CheckAndAwardBombBooster()
+    {
+        // Award bomb booster every 5 matches of 5+
+        if (matchesOf5PlusThisLevel >= requiredMatchesForBombBooster)
+        {
+            BombBoosterManager.AddBombBooster();
+            Debug.Log("Bomb Booster Earned! Total bomb boosters: " + BombBoosterManager.GetBombBoosterCount());
+
+            // Notify HUD that a booster was earned
+            if (level != null && level.hud != null)
+            {
+                level.hud.OnBombBoosterEarned();
+            }
+
+            // Reset counter for next booster
+            matchesOf5PlusThisLevel = 0;
+        }
+    }
+
+    // Enable bomb booster selection mode
+    public void EnableBombBoosterMode()
+    {
+        bombBoosterMode = true;
+        hammerMode = false; // Disable other modes
+        Debug.Log("Bomb Booster Mode Enabled - Click on the board to place bomb!");
+    }
+
+    // Explode bomb at specified position
+    private void ExplodeBombAt(int centerX, int centerY)
+    {
+        Debug.Log("Exploding bomb at: " + centerX + ", " + centerY);
+
+        // Clear center piece
+        ClearPiece(centerX, centerY);
+
+        // Clear 6 surrounding pieces in circular pattern
+        int[] bombPatternX = { 0, 0, 1, -1, 1, -1 }; // Relative to center
+        int[] bombPatternY = { 1, -1, 0, 0, 1, -1 }; // Relative to center
+
+        for (int i = 0; i < bombPatternX.Length; i++)
+        {
+            int bombX = centerX + bombPatternX[i];
+            int bombY = centerY + bombPatternY[i];
+
+            // Check if position is within board boundaries
+            if (bombX >= 0 && bombX < xDim && bombY >= 0 && bombY < yDim)
+            {
+                ClearPiece(bombX, bombY);
+            }
+        }
+    }
+
+    public bool ClearPiece(int x, int y)
     {
         if (pieces[x, y].IsClearable() && !pieces[x, y].ClearableComponent.IsBeingCleared)
         {
@@ -564,13 +639,13 @@ public class Grid : MonoBehaviour
         return false;
     }
 
-    public void ClearObstacles(int x,int y)
+    public void ClearObstacles(int x, int y)
     {
-        for(int adjacentX = x-1; adjacentX <= x+1; adjacentX++)
+        for (int adjacentX = x - 1; adjacentX <= x + 1; adjacentX++)
         {
-            if(adjacentX != x && adjacentX >=0 && adjacentX < xDim)
+            if (adjacentX != x && adjacentX >= 0 && adjacentX < xDim)
             {
-                if (pieces[adjacentX,y].Type == PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
+                if (pieces[adjacentX, y].Type == PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
                 {
                     pieces[adjacentX, y].ClearableComponent.Clear();
                     SpawnNewPiece(adjacentX, y, PieceType.EMPTY);
@@ -599,13 +674,13 @@ public class Grid : MonoBehaviour
 
     public void ClearColumn(int column)
     {
-        for(int y = 0;  y < yDim; y++)
+        for (int y = 0; y < yDim; y++)
             ClearPiece(column, y);
     }
 
     public void ClearColor(ColorPiece.ColorType color)
     {
-        for(int x = 0; x < xDim; x++)
+        for (int x = 0; x < xDim; x++)
         {
             for (int y = 0; y < yDim; y++)
             {
@@ -626,10 +701,10 @@ public class Grid : MonoBehaviour
     {
         List<GamePiece> piecesOfType = new List<GamePiece>();
 
-        for(int x = 0; x < xDim; x++)
-            for(int y = 0;y < yDim; y++)
-                if (pieces[x,y].Type == type)
-                    piecesOfType.Add(pieces[x,y]);
+        for (int x = 0; x < xDim; x++)
+            for (int y = 0; y < yDim; y++)
+                if (pieces[x, y].Type == type)
+                    piecesOfType.Add(pieces[x, y]);
 
         return piecesOfType;
     }
@@ -638,5 +713,4 @@ public class Grid : MonoBehaviour
     {
         hammerMode = true;
     }
-
 }
