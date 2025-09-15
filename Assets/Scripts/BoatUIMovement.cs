@@ -70,18 +70,16 @@ public class BoatUIMovement : MonoBehaviour
     // -----------------------------------------------------------------------
     public void MoveToStage(int targetStageIndex, Action onArrive = null)
     {
-        // Guard: must move exactly to the next stage (N -> N+1)
-        if (targetStageIndex != CurrentStageIndex + 1) return;
-
         if (stageWaypoints == null || stageWaypoints.Length == 0) { Debug.LogError("[BoatUIMovement] stageWaypoints not set"); return; }
         if (targetStageIndex < 1 || targetStageIndex > stageWaypoints.Length) return;
+        if (targetStageIndex == CurrentStageIndex) { onArrive?.Invoke(); return; }
 
         var wp = stageWaypoints[targetStageIndex - 1];
         if (wp == null) { Debug.LogError("[BoatUIMovement] waypoint is NULL for stage " + targetStageIndex); return; }
 
-        // Move and then commit new stage + save state
         StartCoroutine(MoveThenCommit(wp.anchoredPosition, targetStageIndex, onArrive));
     }
+
 
     IEnumerator MoveThenCommit(Vector2 target, int newStageIndex, Action onArrive)
     {
