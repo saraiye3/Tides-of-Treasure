@@ -15,27 +15,35 @@ public class StageButton : MonoBehaviour
         if (clicked) return;
         if (boatMover == null) { Debug.LogError("[StageButton] boatMover missing"); return; }
 
-        if (!LevelProgress.IsLevelUnlocked(stageIndex)) return;
+        bool isSameLevel = (stageIndex == boatMover.CurrentStageIndex);
 
-        // boat movement roles
-        if (stageIndex != boatMover.CurrentStageIndex + 1) return;
+        if (!LevelProgress.IsLevelUnlocked(stageIndex) && !isSameLevel)
+            return;
 
         clicked = true;
 
-        if (!isFinalStage)
+        if (isSameLevel)
         {
-            boatMover.MoveToStage(stageIndex, LoadSceneIfSet);
+            PlayerPrefs.SetInt("LastPlayedStage", stageIndex);
+            PlayerPrefs.Save();
+
+            LoadSceneIfSet();   
+            return;
         }
-        else
+
+        boatMover.MoveToStage(stageIndex, () =>
         {
-            boatMover.MoveToStage(stageIndex, () =>
-            {
-                // final stage -> move to tresure
-                boatMover.MoveToTreasure();
-                StartCoroutine(LoadAfterDelay(0.2f));
-            });
-        }
+            PlayerPrefs.SetInt("LastPlayedStage", stageIndex);
+            PlayerPrefs.Save();
+            LoadSceneIfSet();
+        });
     }
+
+    void OnEnable() { clicked = false; } // שלא ייתקע בין טעינות
+
+
+
+
 
     System.Collections.IEnumerator LoadAfterDelay(float delay)
     {
