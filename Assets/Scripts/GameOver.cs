@@ -77,9 +77,9 @@ public class GameOver : MonoBehaviour
 
     public void OnReplayClicked()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("level1");
+        string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(currentSceneName);
     }
-
 
     public void OnDoneClicked()
     {
