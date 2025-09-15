@@ -5,8 +5,8 @@ public class StageButton : MonoBehaviour
 {
     public int stageIndex = 1;                 // 1,2,3...
     public BoatUIMovement boatMover;
-    public bool isFinalStage = false;          // לשלב האחרון
-    public string sceneToLoad;                 // שם סצנת הלבל
+    public bool isFinalStage = false;          
+    public string sceneToLoad;                 
 
     bool clicked = false;
 
@@ -15,10 +15,9 @@ public class StageButton : MonoBehaviour
         if (clicked) return;
         if (boatMover == null) { Debug.LogError("[StageButton] boatMover missing"); return; }
 
-        // 1) השלב חייב להיות פתוח לפי ההתקדמות
         if (!LevelProgress.IsLevelUnlocked(stageIndex)) return;
 
-        // 2) מותר לשוט *רק* לשלב הבא ברצף (מהמיקום הנוכחי של הסירה)
+        // boat movement roles
         if (stageIndex != boatMover.CurrentStageIndex + 1) return;
 
         clicked = true;
@@ -31,7 +30,7 @@ public class StageButton : MonoBehaviour
         {
             boatMover.MoveToStage(stageIndex, () =>
             {
-                // הגעה לשלב האחרון → הפלגה לאוצר ואז טעינה
+                // final stage -> move to tresure
                 boatMover.MoveToTreasure();
                 StartCoroutine(LoadAfterDelay(0.2f));
             });

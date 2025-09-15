@@ -556,6 +556,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 784683301}
+    - target: {fileID: 1926125831333572339, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: currentStageIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2103861557808179379, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
       propertyPath: level
       value: 

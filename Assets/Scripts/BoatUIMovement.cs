@@ -1,12 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Events;
 
 public class BoatUIMovement : MonoBehaviour
 {
     [Header("Refs")]
     public RectTransform boat;
     public RectTransform treasureWaypoint;
+
+    [SerializeField] private int finalStageIndex = 3; // 1-based: אחרי שלב 3 CurrentStageIndex == 3
+    [SerializeField] private bool autoSailToTreasureWhenAtFinal = true;
+
 
     [Header("Path (ordered)")]
     // NEW: waypoints per stage in order (index 0 = Stage 1, index 1 = Stage 2, ...)
@@ -16,9 +21,12 @@ public class BoatUIMovement : MonoBehaviour
     public float moveDuration = 1.2f; // boat movment time (from a to b )  <-- kept your comment
     public AnimationCurve ease = AnimationCurve.EaseInOut(0, 0, 1, 1); // boat rate  <-- kept your comment
 
+    public UnityEvent onTreasureArrived;
+
     // NEW: current stage the boat is aligned to on the map:
     // 0 = before Stage 1, 1..N = at stage N waypoint
     public int CurrentStageIndex { get; private set; } = 0;
+
 
     bool isMoving = false;
 
@@ -32,7 +40,6 @@ public class BoatUIMovement : MonoBehaviour
 
     void Start()
     {
-        // NEW: load boat position & current stage from PlayerPrefs (if exists)
         if (BoatState.TryLoad(out var pos, out var stage))
         {
             CurrentStageIndex = Mathf.Clamp(stage, 0, stageWaypoints != null ? stageWaypoints.Length : 0);
@@ -43,6 +50,18 @@ public class BoatUIMovement : MonoBehaviour
             CurrentStageIndex = 0;
             if (boat != null) boat.anchoredPosition = defaultPos;
         }
+
+        // NEW: אם כבר בשלב הסופי – לשוט אוטומטית לתיבה
+        if (autoSailToTreasureWhenAtFinal && CurrentStageIndex >= finalStageIndex && treasureWaypoint != null)
+        {
+            StartCoroutine(AutoSailToTreasureNextFrame());
+        }
+    }
+
+    private IEnumerator AutoSailToTreasureNextFrame()
+    {
+        yield return null;
+        MoveToTreasure();
     }
 
     // -----------------------------------------------------------------------
@@ -92,7 +111,10 @@ public class BoatUIMovement : MonoBehaviour
         {
             // Optional: persist boat position after cinematic move
             if (boat != null) BoatState.Save(boat.anchoredPosition, CurrentStageIndex);
+            onTreasureArrived?.Invoke();
         });
+        
+
     }
 
     IEnumerator MoveRoutine(Vector2 target, Action onArrive)
@@ -120,6 +142,7 @@ public class BoatUIMovement : MonoBehaviour
         isMoving = false;
 
         onArrive?.Invoke();
+
     }
     public void ResetBoatToStart(bool save = true)
     {
