@@ -170,7 +170,7 @@ public class Grid : MonoBehaviour
                         SpawnNewPiece(x, y, PieceType.EMPTY);
                         movedPiece = true;
                     }
-                    else
+                    else if(pieceBelow.Type == PieceType.BUBBLE || IsObstacleOnSides(x, y))
                     {
                         for (int diag = -1; diag <= 1; diag++)
                         {
@@ -232,6 +232,17 @@ public class Grid : MonoBehaviour
         }
 
         return movedPiece;
+    }
+
+    private bool IsObstacleOnSides(int x, int y)
+    {
+        if (x > 0 && pieces[x - 1, y].Type == PieceType.BUBBLE)
+            return true;
+
+        if (x < xDim - 1 && pieces[x + 1, y].Type == PieceType.BUBBLE)
+            return true;
+
+        return false;
     }
 
     public Vector2 GetWorldPosition(int x, int y)
