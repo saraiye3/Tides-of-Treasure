@@ -15,16 +15,31 @@ public class HUD : MonoBehaviour
     public TMP_Text scoreText;
     public UnityEngine.UI.Image[] stars;
 
+    // Bomb Booster UI Elements
+    [Header("Bomb Booster UI")]
+    public UnityEngine.UI.Button bombBoosterButton;
+    public TMP_Text bombBoosterCountText;
+    public GameObject bombBoosterPanel;
+
     private int starIdx = 0;
 
     private void Start()
     {
+        // Setup bomb booster button
+        if (bombBoosterButton != null)
+        {
+            bombBoosterButton.onClick.AddListener(OnBombBoosterClicked);
+        }
+
+        // Update booster display
+        UpdateBombBoosterDisplay(BombBoosterManager.GetBombBoosterCount());
+
+        // Original star setup
         for (int i = 0; i < stars.Length; i++)
         {
-            if ( i== starIdx)
+            if (i == starIdx)
             {
                 stars[i].enabled = true;
-
             }
             else
             {
@@ -35,7 +50,7 @@ public class HUD : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
 
     public void SetScore(int score)
@@ -67,13 +82,13 @@ public class HUD : MonoBehaviour
             {
                 stars[i].enabled = false;
             }
-
         }
 
         starIdx = visibleStar;
     }
 
-    public void SetTarget(int target) {
+    public void SetTarget(int target)
+    {
         targetText.text = target.ToString();
     }
 
@@ -113,7 +128,7 @@ public class HUD : MonoBehaviour
 
     public void OnGameLose()
     {
-        if(level is LevelMoves movesLevel && !movesLevel.HammerUsed)
+        if (level is LevelMoves movesLevel && !movesLevel.HammerUsed)
         {
             hammer.ShowHammer();
             movesLevel.HammerUsed = true;
@@ -121,6 +136,68 @@ public class HUD : MonoBehaviour
         else
             gameOver.ShowLose();
     }
+
+    // Bomb Booster Functions
+    public void UpdateBombBoosterDisplay(int count)
+    {
+        if (bombBoosterCountText != null)
+        {
+            bombBoosterCountText.text = count.ToString();
+        }
+
+        if (bombBoosterButton != null)
+        {
+            bombBoosterButton.interactable = (count > 0);
+
+            var colors = bombBoosterButton.colors;
+            colors.normalColor = (count > 0) ? Color.white : Color.gray;
+            bombBoosterButton.colors = colors;
+        }
+
+        // Show/hide panel if available
+        if (bombBoosterPanel != null)
+        {
+            bombBoosterPanel.SetActive(true);
+        }
+    }
+
+    public void OnBombBoosterClicked()
+    {
+        Debug.Log("Bomb Booster button clicked!");
+
+        // Check if boosters are available
+        if (!BombBoosterManager.HasBombBoosters())
+        {
+            Debug.Log("No bomb boosters available!");
+            return;
+        }
+
+        // Try to use booster
+        if (BombBoosterManager.UseBombBooster())
+        {
+            // Activate bomb mode in Grid
+            if (level != null && level.grid != null)
+            {
+                level.grid.EnableBombBoosterMode();
+            }
+            else
+            {
+                Debug.LogError("Grid reference missing in HUD!");
+            }
+
+            // Update display
+            UpdateBombBoosterDisplay(BombBoosterManager.GetBombBoosterCount());
+        }
+    }
+
+    // Called when player earns a new bomb booster
+    public void OnBombBoosterEarned()
+    {
+        Debug.Log("Bomb Booster Earned!");
+        UpdateBombBoosterDisplay(BombBoosterManager.GetBombBoosterCount());
+
+    }
+
 
     public void OnReturnClicked()
     {
