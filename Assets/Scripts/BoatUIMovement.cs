@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Events;
 
 public class BoatUIMovement : MonoBehaviour
 {
@@ -20,9 +21,12 @@ public class BoatUIMovement : MonoBehaviour
     public float moveDuration = 1.2f; // boat movment time (from a to b )  <-- kept your comment
     public AnimationCurve ease = AnimationCurve.EaseInOut(0, 0, 1, 1); // boat rate  <-- kept your comment
 
+    public UnityEvent onTreasureArrived;
+
     // NEW: current stage the boat is aligned to on the map:
     // 0 = before Stage 1, 1..N = at stage N waypoint
     public int CurrentStageIndex { get; private set; } = 0;
+
 
     bool isMoving = false;
 
@@ -107,7 +111,10 @@ public class BoatUIMovement : MonoBehaviour
         {
             // Optional: persist boat position after cinematic move
             if (boat != null) BoatState.Save(boat.anchoredPosition, CurrentStageIndex);
+            onTreasureArrived?.Invoke();
         });
+        
+
     }
 
     IEnumerator MoveRoutine(Vector2 target, Action onArrive)
@@ -135,6 +142,7 @@ public class BoatUIMovement : MonoBehaviour
         isMoving = false;
 
         onArrive?.Invoke();
+
     }
     public void ResetBoatToStart(bool save = true)
     {
