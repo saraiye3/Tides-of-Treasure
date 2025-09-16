@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class Grid : MonoBehaviour
 {
@@ -117,8 +118,7 @@ public class Grid : MonoBehaviour
         if (type == PieceType.NORMAL && gp.ColorComponent != null && sr != null && sr.sprite == null)
         {
             gp.ColorComponent.SetColor(
-                (ColorPiece.ColorType)Random.Range(0, gp.ColorComponent.NumColors)
-            );
+                (ColorPiece.ColorType)Random.Range(0, gp.ColorComponent.NumColors));
         }
 
         return pieces[x, y];
@@ -146,7 +146,7 @@ public class Grid : MonoBehaviour
 
         isFilling = false;
         if (!HasPossibleMoves())
-            ShuffleGrid();
+            TriggerShuffle();
     }
 
     public bool FillStep()
@@ -815,4 +815,20 @@ public class Grid : MonoBehaviour
 
         Debug.Log("Grid shuffled!");
     }
+
+    public void TriggerShuffle()
+    {
+        StartCoroutine(DoShuffleWithDelay());
+    }
+
+    private IEnumerator DoShuffleWithDelay()
+    {
+        level.hud.ShowShuffleMessage();
+
+        yield return new WaitForSeconds(1.5f);
+
+        ShuffleGrid();
+    }
+
+
 }
