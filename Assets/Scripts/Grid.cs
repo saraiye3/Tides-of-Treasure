@@ -143,7 +143,10 @@ public class Grid : MonoBehaviour
             }
             needsRefill = ClearAllValidMatches();
         }
+
         isFilling = false;
+        if (!HasPossibleMoves())
+            ShuffleGrid();
     }
 
     public bool FillStep()
@@ -170,7 +173,7 @@ public class Grid : MonoBehaviour
                         SpawnNewPiece(x, y, PieceType.EMPTY);
                         movedPiece = true;
                     }
-                    else
+                    else if(pieceBelow.Type == PieceType.BUBBLE || IsObstacleOnSides(x, y))
                     {
                         for (int diag = -1; diag <= 1; diag++)
                         {
@@ -232,6 +235,17 @@ public class Grid : MonoBehaviour
         }
 
         return movedPiece;
+    }
+
+    private bool IsObstacleOnSides(int x, int y)
+    {
+        if (x > 0 && pieces[x - 1, y].Type == PieceType.BUBBLE)
+            return true;
+
+        if (x < xDim - 1 && pieces[x + 1, y].Type == PieceType.BUBBLE)
+            return true;
+
+        return false;
     }
 
     public Vector2 GetWorldPosition(int x, int y)
@@ -712,5 +726,93 @@ public class Grid : MonoBehaviour
     public void EnableHammerMode()
     {
         hammerMode = true;
+    }
+
+    private bool HasPossibleMoves()
+    {
+        for (int x = 0; x < xDim; x++)
+        {
+            for (int y = 0; y < yDim; y++)
+            {
+                GamePiece piece = pieces[x, y];
+
+                if (piece == null || !piece.IsColored())
+                    continue;
+
+                // בדיקה עם השכן ימינה
+                if (x < xDim - 1)
+                {
+                    GamePiece rightPiece = pieces[x + 1, y];
+                    if (rightPiece != null && rightPiece.IsColored())
+                    {
+                        // נבדוק אם נוצר Match בהחלפה
+                        if (GetMatch(piece, x + 1, y) != null ||
+                            GetMatch(rightPiece, x, y) != null)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                // בדיקה עם השכן למטה
+                if (y < yDim - 1)
+                {
+                    GamePiece downPiece = pieces[x, y + 1];
+                    if (downPiece != null && downPiece.IsColored())
+                    {
+                        // נבדוק אם נוצר Match בהחלפה
+                        if (GetMatch(piece, x, y + 1) != null ||
+                            GetMatch(downPiece, x, y) != null)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false; // לא נמצאו מהלכים אפשריים
+    }
+
+    public void ShuffleGrid()
+    {
+        List<ColorPiece.ColorType> colors = new List<ColorPiece.ColorType>();
+
+        // שלב 1: לאסוף את כל הצבעים מהלוח
+        for (int x = 0; x < xDim; x++)
+        {
+            for (int y = 0; y < yDim; y++)
+            {
+                if (pieces[x, y].IsColored())
+                {
+                    colors.Add(pieces[x, y].ColorComponent.Color);
+                }
+            }
+        }
+
+        // שלב 2: לערבב את הרשימה
+        for (int i = 0; i < colors.Count; i++)
+        {
+            ColorPiece.ColorType temp = colors[i];
+            int randomIndex = Random.Range(i, colors.Count);
+            colors[i] = colors[randomIndex];
+            colors[randomIndex] = temp;
+        }
+
+        // שלב 3: להציב מחדש את הצבעים בלוח
+        int idx = 0;
+        for (int x = 0; x < xDim; x++)
+        {
+            for (int y = 0; y < yDim; y++)
+            {
+                if (pieces[x, y].IsColored())
+                {
+                    pieces[x, y].ColorComponent.SetColor(colors[idx]);
+                    idx++;
+                }
+            }
+        }
+
+        Debug.Log("Grid shuffled!");
     }
 }
