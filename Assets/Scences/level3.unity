@@ -450,9 +450,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 944178017109018950, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -208.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 944178017109018950, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 253.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2103861557808179379, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: level
+      value: 
+      objectReference: {fileID: 1492267817}
     - target: {fileID: 3431105439429087761, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
       propertyPath: m_Name
       value: Game UI Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712423694254250611, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 52.434
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712423694254250611, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 206.27
       objectReference: {fileID: 0}
     - target: {fileID: 7113687696398563979, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
       propertyPath: m_Pivot.x
@@ -641,7 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 2078338732}
-  hud: {fileID: 0}
+  hud: {fileID: 2116013109}
   score1Star: 50000
   score2Star: 65000
   score3Star: 75000
@@ -819,6 +839,17 @@ MonoBehaviour:
   initialPieces: []
   matchesOf5PlusThisLevel: 0
   requiredMatchesForBombBooster: 5
+--- !u!114 &2116013109 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2103861557808179379, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+  m_PrefabInstance: {fileID: 1270742608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3518216e7fcc3404baf04d1a59c78289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
