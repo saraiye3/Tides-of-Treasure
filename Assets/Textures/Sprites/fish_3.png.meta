@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d325d97b729c6374e93f6c1172a1472a
+guid: 819bab7162b895c44bd9f11a7f1d4758
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -116,10 +116,10 @@ TextureImporter:
       name: fish_3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 13
-        width: 915
-        height: 981
+        x: 79
+        y: 88
+        width: 874
+        height: 832
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
