@@ -9,13 +9,16 @@ public class StageButton : MonoBehaviour
     public string sceneToLoad;                 
 
     bool clicked = false;
-
     public void OnStageClicked()
     {
         if (clicked) return;
         if (boatMover == null) { Debug.LogError("[StageButton] boatMover missing"); return; }
 
-        bool isSameLevel = (stageIndex == boatMover.CurrentStageIndex);
+        // אם ה-Boat עובד 0-based, החליפי ל: int current = boatMover.CurrentStageIndex + 1;
+        int current = boatMover.CurrentStageIndex;
+        bool isSameLevel = (stageIndex == current);
+
+        Debug.Log($"[StageButton] clicked stage={stageIndex}, boat at={current}, unlocked={LevelProgress.IsLevelUnlocked(stageIndex)}");
 
         if (!LevelProgress.IsLevelUnlocked(stageIndex) && !isSameLevel)
             return;
@@ -26,8 +29,7 @@ public class StageButton : MonoBehaviour
         {
             PlayerPrefs.SetInt("LastPlayedStage", stageIndex);
             PlayerPrefs.Save();
-
-            LoadSceneIfSet();   
+            LoadSceneIfSet();
             return;
         }
 
@@ -38,6 +40,7 @@ public class StageButton : MonoBehaviour
             LoadSceneIfSet();
         });
     }
+
 
     void OnEnable() { clicked = false; } // שלא ייתקע בין טעינות
 

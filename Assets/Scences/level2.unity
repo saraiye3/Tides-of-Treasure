@@ -668,7 +668,7 @@ MonoBehaviour:
   score1Star: 25000
   score2Star: 27000
   score3Star: 30000
-  numMoves: 10
+  numMoves: 1
   obstacleTypes: 02000000
 --- !u!1 &1784572909
 GameObject:
@@ -823,7 +823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xDim: 9
   yDim: 9
-  fillTime: 0.4
+  fillTime: 0.2
   level: {fileID: 1492267817}
   piecePrefabs:
   - type: 0

@@ -1,11 +1,8 @@
 using UnityEngine;
-
-// this class keeps user level data
+//this cless keep user level data
 public static class LevelProgress
 {
     private const string Key = "UnlockedLevels";
-    private const string LastLevelKey = "LastLevel"; // חדש: שמירת השלב האחרון
-
     // defaulte - level 1 locked
     public static int GetUnlockedLevels() => PlayerPrefs.GetInt(Key, 1);
 
@@ -22,20 +19,5 @@ public static class LevelProgress
         }
     }
 
-    public static void ResetProgress()
-    {
-        PlayerPrefs.DeleteKey(Key);
-        PlayerPrefs.DeleteKey(LastLevelKey);
-    }
-
-    public static void SetLastLevel(int stageIndex)
-    {
-        PlayerPrefs.SetInt(LastLevelKey, stageIndex);
-        PlayerPrefs.Save();
-    }
-
-    public static int GetLastLevel()
-    {
-        return PlayerPrefs.GetInt(LastLevelKey, 1); // ברירת מחדל: Level1
-    }
+    public static void ResetProgress() => PlayerPrefs.DeleteKey(Key);
 }
