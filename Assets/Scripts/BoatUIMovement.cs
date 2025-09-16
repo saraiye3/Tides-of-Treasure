@@ -64,6 +64,7 @@ public class BoatUIMovement : MonoBehaviour
         MoveToTreasure();
     }
 
+
     // -----------------------------------------------------------------------
     // STRICT stage movement API (use this for level buttons)
     // Moves ONLY from N to N+1. Ignores any non-consecutive or invalid requests.
