@@ -515,6 +515,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6583091421010826474, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: m_margin.x
+      value: -26.326813
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583091421010826474, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
+      propertyPath: m_margin.z
+      value: -30.087784
+      objectReference: {fileID: 0}
     - target: {fileID: 7113687696398563979, guid: 5b584ff8befee864c8c11df1010952ad, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -798,7 +806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 252.99998, y: 129.5}
+  m_AnchoredPosition: {x: 252.99998, y: 132}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2078338732
