@@ -106,17 +106,17 @@ public class HUD : MonoBehaviour
     {
         if (type == Level.LevelType.MOVES)
         {
-            remainingSubtext.text = "moves remaining";
+            remainingSubtext.text = "moves";
             targetSubtext.text = "target score";
         }
         else if (type == Level.LevelType.OBSTACLE)
         {
-            remainingSubtext.text = "moves remaining";
+            remainingSubtext.text = "moves";
             targetSubtext.text = "keys remaining";
         }
         else if (type == Level.LevelType.TIMER)
         {
-            remainingSubtext.text = "time remaining";
+            remainingSubtext.text = "timer";
             targetSubtext.text = "target score";
         }
     }
