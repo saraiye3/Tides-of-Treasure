@@ -730,46 +730,46 @@ public class Grid : MonoBehaviour
 
     private bool HasPossibleMoves()
     {
-        for (int x = 0; x < xDim; x++)
-        {
-            for (int y = 0; y < yDim; y++)
-            {
-                GamePiece piece = pieces[x, y];
+        //for (int x = 0; x < xDim; x++)
+        //{
+        //    for (int y = 0; y < yDim; y++)
+        //    {
+        //        GamePiece piece = pieces[x, y];
 
-                if (piece == null || !piece.IsColored())
-                    continue;
+        //        if (piece == null || !piece.IsColored())
+        //            continue;
 
-                // בדיקה עם השכן ימינה
-                if (x < xDim - 1)
-                {
-                    GamePiece rightPiece = pieces[x + 1, y];
-                    if (rightPiece != null && rightPiece.IsColored())
-                    {
-                        // נבדוק אם נוצר Match בהחלפה
-                        if (GetMatch(piece, x + 1, y) != null ||
-                            GetMatch(rightPiece, x, y) != null)
-                        {
-                            return true;
-                        }
-                    }
-                }
+        //        // בדיקה עם השכן ימינה
+        //        if (x < xDim - 1)
+        //        {
+        //            GamePiece rightPiece = pieces[x + 1, y];
+        //            if (rightPiece != null && rightPiece.IsColored())
+        //            {
+        //                // נבדוק אם נוצר Match בהחלפה
+        //                if (GetMatch(piece, x + 1, y) != null ||
+        //                    GetMatch(rightPiece, x, y) != null)
+        //                {
+        //                    return true;
+        //                }
+        //            }
+        //        }
 
-                // בדיקה עם השכן למטה
-                if (y < yDim - 1)
-                {
-                    GamePiece downPiece = pieces[x, y + 1];
-                    if (downPiece != null && downPiece.IsColored())
-                    {
-                        // נבדוק אם נוצר Match בהחלפה
-                        if (GetMatch(piece, x, y + 1) != null ||
-                            GetMatch(downPiece, x, y) != null)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
+        //        // בדיקה עם השכן למטה
+        //        if (y < yDim - 1)
+        //        {
+        //            GamePiece downPiece = pieces[x, y + 1];
+        //            if (downPiece != null && downPiece.IsColored())
+        //            {
+        //                // נבדוק אם נוצר Match בהחלפה
+        //                if (GetMatch(piece, x, y + 1) != null ||
+        //                    GetMatch(downPiece, x, y) != null)
+        //                {
+        //                    return true;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         return false; // לא נמצאו מהלכים אפשריים
     }
