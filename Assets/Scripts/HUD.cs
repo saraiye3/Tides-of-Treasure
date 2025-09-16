@@ -206,7 +206,8 @@ public class HUD : MonoBehaviour
 
     public void ShowShuffleMessage()
     {
-        shuffleText.gameObject.SetActive(true);   
+        shuffleText.gameObject.SetActive(true);
+        Debug.Log("no possible moves");
         StartCoroutine(HideShuffleMessage());
     }
 
