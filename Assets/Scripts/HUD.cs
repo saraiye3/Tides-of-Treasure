@@ -14,6 +14,7 @@ public class HUD : MonoBehaviour
     public TMP_Text targetSubtext;
     public TMP_Text scoreText;
     public UnityEngine.UI.Image[] stars;
+    public TMP_Text shuffleText;
 
     // Bomb Booster UI Elements
     [Header("Bomb Booster UI")]
@@ -198,9 +199,20 @@ public class HUD : MonoBehaviour
 
     }
 
-
     public void OnReturnClicked()
     {
         SceneManager.LoadScene("menuScene");
+    }
+
+    public void ShowShuffleMessage()
+    {
+        shuffleText.gameObject.SetActive(true);   
+        StartCoroutine(HideShuffleMessage());
+    }
+
+    public IEnumerator HideShuffleMessage()
+    {
+        yield return new WaitForSeconds(1.5f);
+        shuffleText.gameObject.SetActive(false);
     }
 }
