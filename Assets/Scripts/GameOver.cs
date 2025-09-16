@@ -83,7 +83,8 @@ public class GameOver : MonoBehaviour
 
     public void OnDoneClicked()
     {
-        LevelProgress.UnlockUpTo(currentStageIndex + 1);// open the next level
+        int last = PlayerPrefs.GetInt("LastPlayedStage", 1); // 1-based מהכפתור במפה
+        LevelProgress.UnlockUpTo(last + 1);                  // פותח את השלב הבא
         UnityEngine.SceneManagement.SceneManager.LoadScene("menuScene");
     }
 }

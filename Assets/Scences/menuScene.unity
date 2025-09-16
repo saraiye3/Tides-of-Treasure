@@ -243,7 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageIndex: 3
 --- !u!114 &464320576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,7 +514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageIndex: 3
   boatMover: {fileID: 1843442366}
-  isFinalStage: 1
+  isFinalStage: 0
   sceneToLoad: level3
 --- !u!114 &532277241
 MonoBehaviour:
@@ -529,7 +528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageIndex: 3
 --- !u!1 &741930263
 GameObject:
   m_ObjectHideFlags: 0
@@ -5768,7 +5766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageIndex: 2
 --- !u!1 &1774430494
 GameObject:
   m_ObjectHideFlags: 0
@@ -6303,7 +6300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec16b782ff4b5459e80d55c87e120452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageIndex: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
