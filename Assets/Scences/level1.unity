@@ -644,9 +644,7 @@ MonoBehaviour:
   score1Star: 2000
   score2Star: 6000
   score3Star: 9000
-
   numMoves: 15
-
   targetScore: 30000
 --- !u!1 &1784572909
 GameObject:
@@ -780,7 +778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xDim: 6
-  yDim: 7
+  yDim: 6
   fillTime: 0.2
   level: {fileID: 1492267817}
   piecePrefabs:
