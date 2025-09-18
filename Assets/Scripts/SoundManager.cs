@@ -14,6 +14,12 @@ public class SoundManager : MonoBehaviour
     public AudioClip bigMatchSound;
     public AudioClip specialPieceSound;
 
+
+    [Header("Bomb")]
+    public AudioClip bombSound;
+
+    public void PlayBomb() => sfxSource.PlayOneShot(bombSound);
+
     void Awake()
     {
         if (instance == null) instance = this;
@@ -37,6 +43,7 @@ public class SoundManager : MonoBehaviour
         GameEvents.OnMatch += PlayMatch;
         GameEvents.OnBigMatch += PlayBigMatch;
         GameEvents.OnSpecialPiece += PlaySpecialPiece;
+        GameEvents.OnBomb += PlayBomb;  
     }
 
     void OnDisable()
@@ -44,6 +51,7 @@ public class SoundManager : MonoBehaviour
         GameEvents.OnMatch -= PlayMatch;
         GameEvents.OnBigMatch -= PlayBigMatch;
         GameEvents.OnSpecialPiece -= PlaySpecialPiece;
+        GameEvents.OnBomb -= PlayBomb;
     }
 
     public void PlayMatch() => sfxSource.PlayOneShot(matchSound);

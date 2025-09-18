@@ -51,7 +51,8 @@ MonoBehaviour:
   backgroundMusic: {fileID: 8300000, guid: 424512c5793b1f64dabb694e759c7c22, type: 3}
   matchSound: {fileID: 8300000, guid: 4d9b4778dfed88146b87973c402ded5f, type: 3}
   bigMatchSound: {fileID: 8300000, guid: 9dc85cb53e33f544a93104010a416557, type: 3}
-  specialPieceSound: {fileID: 8300000, guid: 4d9b4778dfed88146b87973c402ded5f, type: 3}
+  specialPieceSound: {fileID: 8300000, guid: 69f7cf764f4b7494596aeb94b6f81375, type: 3}
+  bombSound: {fileID: 8300000, guid: 15063abb833077b439a549beb0d40510, type: 3}
 --- !u!82 &2466614093817929198
 AudioSource:
   m_ObjectHideFlags: 0
