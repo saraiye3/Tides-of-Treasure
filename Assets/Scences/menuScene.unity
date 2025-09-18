@@ -5587,6 +5587,7 @@ MonoBehaviour:
   isFinalStage: 1
   sceneToLoad: level3
   requireFinalStageToSail: 1
+  requireDoneToSail: 1
 --- !u!114 &532277241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10826,6 +10827,7 @@ MonoBehaviour:
   isFinalStage: 0
   sceneToLoad: level2
   requireFinalStageToSail: 1
+  requireDoneToSail: 1
 --- !u!114 &1649037003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11264,9 +11266,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageIndex: 0
   boatMover: {fileID: 1843442366}
-  isFinalStage: 1
+  isFinalStage: 0
   sceneToLoad: 
   requireFinalStageToSail: 0
+  requireDoneToSail: 1
 --- !u!114 &1852636466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11512,6 +11515,7 @@ MonoBehaviour:
   isFinalStage: 0
   sceneToLoad: level1
   requireFinalStageToSail: 1
+  requireDoneToSail: 1
 --- !u!114 &2110041246
 MonoBehaviour:
   m_ObjectHideFlags: 0
