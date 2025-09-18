@@ -7,9 +7,9 @@ public class BoatUIMovement : MonoBehaviour
 {
     [Header("Refs")]
     public RectTransform boat;
-    public RectTransform treasureWaypoint;
+    public RectTransform TreasureWaypoint;
 
-    [SerializeField] private int finalStageIndex = 3; // 1-based: אחרי שלב 3 CurrentStageIndex == 3
+    [SerializeField] private int finalStageIndex = 3; 
     [SerializeField] private bool autoSailToTreasureWhenAtFinal = true;
 
 
@@ -26,6 +26,10 @@ public class BoatUIMovement : MonoBehaviour
     // NEW: current stage the boat is aligned to on the map:
     // 0 = before Stage 1, 1..N = at stage N waypoint
     public int CurrentStageIndex { get; private set; } = 0;
+
+    public int FinalStageIndex => finalStageIndex;
+    public bool IsAtOrBeyondFinalStage => CurrentStageIndex >= finalStageIndex;
+
 
 
     bool isMoving = false;
@@ -51,11 +55,11 @@ public class BoatUIMovement : MonoBehaviour
             if (boat != null) boat.anchoredPosition = defaultPos;
         }
 
-        // NEW: אם כבר בשלב הסופי – לשוט אוטומטית לתיבה
-        if (autoSailToTreasureWhenAtFinal && CurrentStageIndex >= finalStageIndex && treasureWaypoint != null)
-        {
-            StartCoroutine(AutoSailToTreasureNextFrame());
-        }
+        //// NEW: אם כבר בשלב הסופי – לשוט אוטומטית לתיבה
+        //if (autoSailToTreasureWhenAtFinal && CurrentStageIndex >= finalStageIndex && treasureWaypoint != null)
+        //{
+        //    StartCoroutine(AutoSailToTreasureNextFrame());
+        //}
     }
 
     private IEnumerator AutoSailToTreasureNextFrame()
@@ -105,8 +109,8 @@ public class BoatUIMovement : MonoBehaviour
 
     public void MoveToTreasure()
     {
-        if (treasureWaypoint == null) { Debug.LogError("[BoatUIMovement] treasureWaypoint is NULL"); return; }
-        MoveToWaypoint(treasureWaypoint, () =>
+        if (TreasureWaypoint == null) { Debug.LogError("[BoatUIMovement] treasureWaypoint is NULL"); return; }
+        MoveToWaypoint(TreasureWaypoint, () =>
         {
             // Optional: persist boat position after cinematic move
             if (boat != null) BoatState.Save(boat.anchoredPosition, CurrentStageIndex);
@@ -163,4 +167,6 @@ public class BoatUIMovement : MonoBehaviour
             if (boat != null) boat.anchoredPosition = defaultPos;
         }
     }
+
+
 }
