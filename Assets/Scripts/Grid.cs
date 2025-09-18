@@ -584,6 +584,8 @@ public class Grid : MonoBehaviour
                 ClearPiece(bombX, bombY);
             }
         }
+
+        GameEvents.OnBomb?.Invoke();
     }
 
     public bool ClearPiece(int x, int y)
