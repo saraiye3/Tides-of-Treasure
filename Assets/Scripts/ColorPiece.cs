@@ -7,7 +7,7 @@ public class ColorPiece : MonoBehaviour
     public enum ColorType
     {
         YELLOW,
-        PURPULE,
+        PURPLE,
         RED,
         BLUE,
         GREEN,

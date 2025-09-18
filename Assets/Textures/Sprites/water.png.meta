@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ebd88b44d5abf3648b9d11cd62316dff
+guid: 0f5da24243d28a04ca008aa689803250
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4928288947494041771
-    second: Gemini_Generated_Image_634kqz634kqz634k_0
+      213: 8509550459451208454
+    second: water_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gemini_Generated_Image_634kqz634kqz634k_0
+      name: water_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
+        width: 1536
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 557422e30533b9bb0800000000000000
-      internalID: -4928288947494041771
+      spriteID: 603f9ddae0ff71670800000000000000
+      internalID: 8509550459451208454
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gemini_Generated_Image_634kqz634kqz634k_0: -4928288947494041771
+      water_0: 8509550459451208454
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

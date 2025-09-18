@@ -790,7 +790,7 @@ MonoBehaviour:
   score1Star: 50000
   score2Star: 65000
   score3Star: 75000
-  timeInSeconds: 60
+  timeInSeconds: 5
   targetScore: 100000
 --- !u!1 &1784572909
 GameObject:
