@@ -38,6 +38,8 @@ public class Grid : MonoBehaviour
     private GamePiece enteredPiece;
     private bool gameOver = false;
     private bool hammerMode = false;
+    // lock counter for each key - counts to 3
+    private Dictionary<Vector2Int, int> obstacleHitCount = new Dictionary<Vector2Int, int>();
 
     public int xDim;
     public int yDim;
@@ -600,30 +602,57 @@ public class Grid : MonoBehaviour
 
     public void ClearObstacles(int x, int y)
     {
+        // check horizontal sides
         for (int adjacentX = x - 1; adjacentX <= x + 1; adjacentX++)
         {
             if (adjacentX != x && adjacentX >= 0 && adjacentX < xDim)
             {
                 if (pieces[adjacentX, y].Type == PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
                 {
-                    pieces[adjacentX, y].ClearableComponent.Clear();
-                    SpawnNewPiece(adjacentX, y, PieceType.EMPTY);
+                    Vector2Int key = new Vector2Int(adjacentX, y);
+
+                    if (!obstacleHitCount.ContainsKey(key))
+                        obstacleHitCount[key] = 0;
+
+                    obstacleHitCount[key]++;
+                    Debug.Log($"[ClearObstacles] bubble {key} hit {obstacleHitCount[key]} times");
+
+                    if (obstacleHitCount[key] >= 3)
+                    {
+                        pieces[adjacentX, y].ClearableComponent.Clear();
+                        SpawnNewPiece(adjacentX, y, PieceType.EMPTY);
+                        obstacleHitCount.Remove(key);
+                    }
                 }
             }
         }
 
+        // check vertical sides
         for (int adjacentY = y - 1; adjacentY <= y + 1; adjacentY++)
         {
             if (adjacentY != y && adjacentY >= 0 && adjacentY < yDim)
             {
                 if (pieces[x, adjacentY].Type == PieceType.BUBBLE && pieces[x, adjacentY].IsClearable())
                 {
-                    pieces[x, adjacentY].ClearableComponent.Clear();
-                    SpawnNewPiece(x, adjacentY, PieceType.EMPTY);
+                    Vector2Int key = new Vector2Int(x, adjacentY);
+
+                    if (!obstacleHitCount.ContainsKey(key))
+                        obstacleHitCount[key] = 0;
+
+                    obstacleHitCount[key]++;
+                    Debug.Log($"[ClearObstacles] bubble {key} hit {obstacleHitCount[key]} times");
+
+                    if (obstacleHitCount[key] >= 3)
+                    {
+                        pieces[x, adjacentY].ClearableComponent.Clear();
+                        SpawnNewPiece(x, adjacentY, PieceType.EMPTY);
+                        obstacleHitCount.Remove(key);
+                    }
                 }
             }
         }
     }
+
 
     public void ClearRow(int row)
     {
