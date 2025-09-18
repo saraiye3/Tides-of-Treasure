@@ -680,7 +680,7 @@ MonoBehaviour:
   score1Star: 25000
   score2Star: 27000
   score3Star: 30000
-  numMoves: 1
+  numMoves: 2
   obstacleTypes: 02000000
 --- !u!1001 &1746194202
 PrefabInstance:

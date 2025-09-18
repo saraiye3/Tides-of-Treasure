@@ -12,7 +12,6 @@ public class GameOver : MonoBehaviour
     public TMP_Text scoreText;
     public UnityEngine.UI.Image[] stars;
     public Animator animator;
-public ParticleSystem coinsPS;
 
     public int currentStageIndex = 1;
 
@@ -48,7 +47,6 @@ public ParticleSystem coinsPS;
         if (animator)
         {
             animator.Play("GameOverShow");
-            coinsPS.Play();
         }
 
         StartCoroutine(ShowWinCoroutine(starCount));

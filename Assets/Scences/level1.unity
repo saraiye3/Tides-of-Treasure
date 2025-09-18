@@ -644,10 +644,8 @@ MonoBehaviour:
   score1Star: 2000
   score2Star: 6000
   score3Star: 9000
-
-  numMoves: 15
-
-  targetScore: 30000
+  numMoves: 2
+  targetScore: 0
 --- !u!1 &1784572909
 GameObject:
   m_ObjectHideFlags: 0
