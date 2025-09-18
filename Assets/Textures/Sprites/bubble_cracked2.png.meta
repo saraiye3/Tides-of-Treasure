@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: d47ab550613bddc459005a68a03b0e2b
+guid: 7971aaf7e1bc6ff48871338eeef6071e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1095141833252711340
-    second: key_0
-  - first:
-      213: 6614747575886032176
-    second: key_1
-  - first:
-      213: -7756627232784180200
-    second: key_2
+      213: 7201198052207409636
+    second: bubble_cracked2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: key_0
+      name: bubble_cracked2_0
       rect:
         serializedVersion: 2
-        x: 55
-        y: 16
-        width: 904
-        height: 987
+        x: 3
+        y: 0
+        width: 1019
+        height: 1019
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: caba2bde1b9b23f00800000000000000
-      internalID: 1095141833252711340
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: key_1
-      rect:
-        serializedVersion: 2
-        x: 804
-        y: 903
-        width: 110
-        height: 114
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 03d2093bfdd4ccb50800000000000000
-      internalID: 6614747575886032176
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: key_2
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 541
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 81c17cec0acea5490800000000000000
-      internalID: -7756627232784180200
+      spriteID: 4e9be03997bcfe360800000000000000
+      internalID: 7201198052207409636
       vertices: []
       indices: 
       edges: []
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      key_0: 1095141833252711340
-      key_1: 6614747575886032176
-      key_2: -7756627232784180200
+      bubble_cracked2_0: 7201198052207409636
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
