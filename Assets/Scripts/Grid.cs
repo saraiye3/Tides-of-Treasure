@@ -124,10 +124,6 @@ public class Grid : MonoBehaviour
         return pieces[x, y];
     }
 
-    void Update()
-    {
-    }
-
     public IEnumerator Fill()
     {
         bool needsRefill = true;
@@ -366,141 +362,76 @@ public class Grid : MonoBehaviour
 
     public List<GamePiece> GetMatch(GamePiece piece, int newX, int newY)
     {
-        if (piece.IsColored())
+        if (piece == null || !piece.IsColored())
+            return null;
+
+        ColorPiece.ColorType color = piece.ColorComponent.Color;
+
+        // Use HashSet to avoid duplicates
+        HashSet<GamePiece> horizontal = new HashSet<GamePiece>();
+        HashSet<GamePiece> vertical = new HashSet<GamePiece>();
+
+        // include the center piece once
+        horizontal.Add(piece);
+        vertical.Add(piece);
+
+        // --- horizontal scan ---
+        int left = newX - 1;
+        while (left >= 0 && pieces[left, newY].IsColored() &&
+               pieces[left, newY].ColorComponent.Color == color)
         {
-            ColorPiece.ColorType color = piece.ColorComponent.Color;
-            List<GamePiece> horizontalPieces = new List<GamePiece>();
-            List<GamePiece> verticalPieces = new List<GamePiece>();
-            List<GamePiece> matchingPieces = new List<GamePiece>();
-
-            // First check horizontal
-            horizontalPieces.Add(piece);
-
-            for (int dir = 0; dir <= 1; dir++)
-            {
-                for (int xOffset = 1; xOffset < xDim; xOffset++)
-                {
-                    int x = (dir == 0) ? newX - xOffset : newX + xOffset;
-
-                    if (x < 0 || x >= xDim)
-                        break;
-
-                    if (pieces[x, newY].IsColored() && pieces[x, newY].ColorComponent.Color == color)
-                        horizontalPieces.Add(pieces[x, newY]);
-                    else
-                        break;
-                }
-            }
-
-            if (horizontalPieces.Count >= 3)
-                matchingPieces.AddRange(horizontalPieces);
-
-            // Traverse vertically if we found a horizontal match
-            if (horizontalPieces.Count >= 3)
-            {
-                List<GamePiece> newVerticals = new List<GamePiece>();
-
-                for (int i = 0; i < horizontalPieces.Count; i++)
-                {
-                    for (int dir = 0; dir <= 1; dir++)
-                    {
-                        for (int yOffset = 1; yOffset < yDim; yOffset++)
-                        {
-                            int y = (dir == 0) ? newY - yOffset : newY + yOffset;
-
-                            if (y < 0 || y >= yDim)
-                                break;
-
-                            if (pieces[horizontalPieces[i].X, y].IsColored() &&
-                                pieces[horizontalPieces[i].X, y].ColorComponent.Color == color)
-                            {
-                                newVerticals.Add(pieces[horizontalPieces[i].X, y]);
-                            }
-                            else
-                                break;
-                        }
-                    }
-                }
-
-                if (newVerticals.Count >= 2)
-                {
-                    verticalPieces.AddRange(newVerticals);
-                    matchingPieces.AddRange(verticalPieces);
-                }
-            }
-
-            if (matchingPieces.Count >= 3)
-                return matchingPieces;
-
-            // Now check vertical
-            horizontalPieces.Clear();
-            verticalPieces.Clear();
-            verticalPieces.Add(piece);
-
-            for (int dir = 0; dir <= 1; dir++)
-            {
-                for (int yOffset = 1; yOffset < yDim; yOffset++)
-                {
-                    int y = (dir == 0) ? newY - yOffset : newY + yOffset;
-
-                    if (y < 0 || y >= yDim)
-                        break;
-
-                    if (pieces[newX, y].IsColored() && pieces[newX, y].ColorComponent.Color == color)
-                        verticalPieces.Add(pieces[newX, y]);
-                    else
-                        break;
-                }
-            }
-
-            if (verticalPieces.Count >= 3)
-                matchingPieces.AddRange(verticalPieces);
-
-            // Traverse horizontally if we found a vertical match
-            if (verticalPieces.Count >= 3)
-            {
-                List<GamePiece> newHorizontals = new List<GamePiece>();
-
-                for (int i = 0; i < verticalPieces.Count; i++)
-                {
-                    for (int dir = 0; dir <= 1; dir++)
-                    {
-                        for (int xOffset = 1; xOffset < xDim; xOffset++)
-                        {
-                            int x = (dir == 0) ? newX - xOffset : newX + xOffset;
-
-                            if (x < 0 || x >= xDim)
-                                break;
-
-                            if (pieces[x, verticalPieces[i].Y].IsColored() &&
-                                pieces[x, verticalPieces[i].Y].ColorComponent.Color == color)
-                            {
-                                newHorizontals.Add(pieces[x, verticalPieces[i].Y]);
-                            }
-                            else
-                                break;
-                        }
-                    }
-                }
-
-                if (newHorizontals.Count >= 2)
-                {
-                    horizontalPieces.AddRange(newHorizontals);
-                    matchingPieces.AddRange(horizontalPieces);
-                }
-            }
-
-            if (matchingPieces.Count >= 3)
-                return matchingPieces;
+            horizontal.Add(pieces[left, newY]);
+            left--;
         }
 
-        return null;
+        int right = newX + 1;
+        while (right < xDim && pieces[right, newY].IsColored() &&
+               pieces[right, newY].ColorComponent.Color == color)
+        {
+            horizontal.Add(pieces[right, newY]);
+            right++;
+        }
+
+        // --- vertical scan ---
+        int down = newY - 1;
+        while (down >= 0 && pieces[newX, down].IsColored() &&
+               pieces[newX, down].ColorComponent.Color == color)
+        {
+            vertical.Add(pieces[newX, down]);
+            down--;
+        }
+
+        int up = newY + 1;
+        while (up < yDim && pieces[newX, up].IsColored() &&
+               pieces[newX, up].ColorComponent.Color == color)
+        {
+            vertical.Add(pieces[newX, up]);
+            up++;
+        }
+
+        bool hasHorizontal = horizontal.Count >= 3;
+        bool hasVertical = vertical.Count >= 3;
+
+        if (!hasHorizontal && !hasVertical)
+            return null;
+
+        // --- return the right set ---
+        if (hasHorizontal && !hasVertical)
+            return new List<GamePiece>(horizontal);
+
+        if (!hasHorizontal && hasVertical)
+            return new List<GamePiece>(vertical);
+
+        // L/T shape: union of both sets
+        horizontal.UnionWith(vertical);
+        return new List<GamePiece>(horizontal);
     }
 
-    // Check for matches and award bomb boosters when appropriate
     public bool ClearAllValidMatches()
     {
         bool needsRefill = false;
+
+        HashSet<GamePiece> toClear = new HashSet<GamePiece>();
 
         for (int y = 0; y < yDim; y++)
         {
@@ -509,82 +440,96 @@ public class Grid : MonoBehaviour
                 if (pieces[x, y].IsClearable())
                 {
                     List<GamePiece> match = GetMatch(pieces[x, y], x, y);
-
                     if (match != null)
                     {
-                        // Track matches of 5+ for bomb booster system
+                        //trigger match event
+                        GameEvents.OnMatch?.Invoke();
+
                         if (match.Count >= 5)
                         {
+                            //trigger big match event
+                            GameEvents.OnBigMatch?.Invoke();
+
                             matchesOf5PlusThisLevel++;
                             Debug.Log("Match of " + match.Count + "! Total 5+ matches this level: " + matchesOf5PlusThisLevel);
-
-                            // Check if player earned a bomb booster
                             CheckAndAwardBombBooster();
                         }
 
-                        PieceType specialPieceType = PieceType.COUNT;
-                        GamePiece randomPiece = match[Random.Range(0, match.Count)];
-
-                        int specialPieceX = randomPiece.X;
-                        int specialPieceY = randomPiece.Y;
-
-                        if (match.Count == 4)
-                        {
-                            if (pressedPiece == null || enteredPiece == null)
-                            {
-                                specialPieceType = (PieceType)Random.Range((int)PieceType.ROW_CLEAR, (int)PieceType.COLUMN_CLEAR);
-                            }
-                            else if (pressedPiece.Y == enteredPiece.Y)
-                            {
-                                specialPieceType = PieceType.ROW_CLEAR;
-                            }
-                            else
-                            {
-                                specialPieceType = PieceType.COLUMN_CLEAR;
-                            }
-                        }
-                        else if (match.Count >= 6)
-                        {
-                            specialPieceType = PieceType.RAINBOW;
-                        }
-
-                        for (int i = 0; i < match.Count; i++)
-                        {
-                            if (ClearPiece(match[i].X, match[i].Y))
-                            {
-                                needsRefill = true;
-
-                                if (match[i] == pressedPiece || match[i] == enteredPiece)
-                                {
-                                    specialPieceX = match[i].X;
-                                    specialPieceY = match[i].Y;
-
-                                }
-                                if (specialPieceType != PieceType.COUNT)
-                                {
-                                    Destroy(pieces[specialPieceX, specialPieceY].gameObject);
-
-                                    GamePiece newPiece = SpawnNewPiece(specialPieceX, specialPieceY, specialPieceType);
-
-                                    if ((specialPieceType == PieceType.ROW_CLEAR || specialPieceType == PieceType.COLUMN_CLEAR)
-                                        && newPiece.IsColored() && match[0].IsColored())
-                                    {
-                                        newPiece.ColorComponent.SetColor(match[0].ColorComponent.Color);
-                                    }
-                                    else if (specialPieceType == PieceType.RAINBOW && newPiece.IsColored())
-                                    {
-                                        newPiece.ColorComponent.SetColor(ColorPiece.ColorType.ANY);
-                                    }
-                                }
-                            }
-                        }
+                        foreach (var gp in match)
+                            toClear.Add(gp);
                     }
                 }
             }
         }
 
+        if (toClear.Count == 0)
+            return false;
+
+        GamePiece refPiece = null;
+        foreach (var gp in toClear) { refPiece = gp; break; }
+
+        PieceType specialPieceType = PieceType.COUNT;
+        int specialPieceX = refPiece.X;
+        int specialPieceY = refPiece.Y;
+
+        if (toClear.Count == 4)
+        {
+            if (pressedPiece == null || enteredPiece == null)
+            {
+                specialPieceType = (PieceType)Random.Range((int)PieceType.ROW_CLEAR, (int)PieceType.COLUMN_CLEAR);
+            }
+            else if (pressedPiece.Y == enteredPiece.Y)
+            {
+                specialPieceType = PieceType.ROW_CLEAR;
+            }
+            else
+            {
+                specialPieceType = PieceType.COLUMN_CLEAR;
+            }
+        }
+        else if (toClear.Count >= 6)
+        {
+            specialPieceType = PieceType.RAINBOW;
+        }
+
+        //trigger special piece event
+        if (specialPieceType != PieceType.COUNT)
+            GameEvents.OnSpecialPiece?.Invoke();
+
+        foreach (var gp in toClear)
+        {
+            if (ClearPiece(gp.X, gp.Y))
+            {
+                needsRefill = true;
+
+                if (gp == pressedPiece || gp == enteredPiece)
+                {
+                    specialPieceX = gp.X;
+                    specialPieceY = gp.Y;
+                }
+            }
+        }
+
+        if (specialPieceType != PieceType.COUNT)
+        {
+            Destroy(pieces[specialPieceX, specialPieceY].gameObject);
+
+            GamePiece newPiece = SpawnNewPiece(specialPieceX, specialPieceY, specialPieceType);
+
+            if ((specialPieceType == PieceType.ROW_CLEAR || specialPieceType == PieceType.COLUMN_CLEAR)
+                && newPiece.IsColored() && refPiece.IsColored())
+            {
+                newPiece.ColorComponent.SetColor(refPiece.ColorComponent.Color);
+            }
+            else if (specialPieceType == PieceType.RAINBOW && newPiece.IsColored())
+            {
+                newPiece.ColorComponent.SetColor(ColorPiece.ColorType.ANY);
+            }
+        }
+
         return needsRefill;
     }
+
 
     // Check and award bomb booster when requirements are met
     private void CheckAndAwardBombBooster()
@@ -734,44 +679,43 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < yDim; y++)
             {
-                GamePiece piece = pieces[x, y];
-
-                if (piece == null || !piece.IsColored())
+                GamePiece p = pieces[x, y];
+                if (p == null || !p.IsColored())
                     continue;
 
-                // בדיקה עם השכן ימינה
+                // בדיקה עם שכן ימני
                 if (x < xDim - 1)
                 {
-                    GamePiece rightPiece = pieces[x + 1, y];
-                    if (rightPiece != null && rightPiece.IsColored())
+                    GamePiece right = pieces[x + 1, y];
+                    if (right != null && right.IsColored())
                     {
-                        // נבדוק אם נוצר Match בהחלפה
-                        if (GetMatch(piece, x + 1, y) != null ||
-                            GetMatch(rightPiece, x, y) != null)
+                        Debug.Log($"[HasPossibleMoves] try swap ({x},{y}) <-> ({x + 1},{y})");
+                        if (GetMatch(p, x + 1, y) != null || GetMatch(right, x, y) != null)
                         {
+                            Debug.Log($"[HasPossibleMoves] >>> possible move found swapping ({x},{y}) with ({x + 1},{y})");
                             return true;
                         }
                     }
                 }
 
-                // בדיקה עם השכן למטה
+                // בדיקה עם שכן עליון
                 if (y < yDim - 1)
                 {
-                    GamePiece downPiece = pieces[x, y + 1];
-                    if (downPiece != null && downPiece.IsColored())
+                    GamePiece up = pieces[x, y + 1];
+                    if (up != null && up.IsColored())
                     {
-                        // נבדוק אם נוצר Match בהחלפה
-                        if (GetMatch(piece, x, y + 1) != null ||
-                            GetMatch(downPiece, x, y) != null)
+                        Debug.Log($"[HasPossibleMoves] try swap ({x},{y}) <-> ({x},{y + 1})");
+                        if (GetMatch(p, x, y + 1) != null || GetMatch(up, x, y) != null)
                         {
+                            Debug.Log($"[HasPossibleMoves] >>> possible move found swapping ({x},{y}) with ({x},{y + 1})");
                             return true;
                         }
                     }
                 }
             }
         }
-
-        return false; // לא נמצאו מהלכים אפשריים
+        Debug.Log("[HasPossibleMoves] No possible move");
+        return false;
     }
 
     public void ShuffleGrid()

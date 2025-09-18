@@ -5,8 +5,8 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
 
     [Header("Audio Sources")]
-    public AudioSource musicSource;  
-    public AudioSource sfxSource;   
+    public AudioSource musicSource;
+    public AudioSource sfxSource;
 
     [Header("Clips")]
     public AudioClip backgroundMusic;
@@ -30,6 +30,20 @@ public class SoundManager : MonoBehaviour
             musicSource.loop = true;
             musicSource.Play();
         }
+    }
+
+    void OnEnable()
+    {
+        GameEvents.OnMatch += PlayMatch;
+        GameEvents.OnBigMatch += PlayBigMatch;
+        GameEvents.OnSpecialPiece += PlaySpecialPiece;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnMatch -= PlayMatch;
+        GameEvents.OnBigMatch -= PlayBigMatch;
+        GameEvents.OnSpecialPiece -= PlaySpecialPiece;
     }
 
     public void PlayMatch() => sfxSource.PlayOneShot(matchSound);
