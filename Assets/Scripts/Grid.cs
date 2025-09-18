@@ -604,57 +604,51 @@ public class Grid : MonoBehaviour
 
     public void ClearObstacles(int x, int y)
     {
-        // check horizontal sides
-        for (int adjacentX = x - 1; adjacentX <= x + 1; adjacentX++)
+        // ארבעת הכיוונים – שמאלה, ימינה, מעלה, מטה
+        Vector2Int[] directions =
         {
-            if (adjacentX != x && adjacentX >= 0 && adjacentX < xDim)
+        new Vector2Int(-1, 0), new Vector2Int(1, 0),
+        new Vector2Int(0, -1), new Vector2Int(0, 1)
+    };
+
+        foreach (var dir in directions)
+        {
+            int nx = x + dir.x;
+            int ny = y + dir.y;
+
+            // לבדוק שהשכן בתוך גבולות הלוח
+            if (nx < 0 || nx >= xDim || ny < 0 || ny >= yDim)
+                continue;
+
+            // אם התא הסמוך הוא בועה שניתנת לניקוי
+            if (pieces[nx, ny].Type == PieceType.BUBBLE && pieces[nx, ny].IsClearable())
             {
-                if (pieces[adjacentX, y].Type == PieceType.BUBBLE && pieces[adjacentX, y].IsClearable())
+                var key = new Vector2Int(nx, ny);
+
+                // מגדילים מונה פגיעות
+                obstacleHitCount.TryGetValue(key, out int hits);
+                hits++;
+                obstacleHitCount[key] = hits;
+
+                // ---- שינוי Sprite לפי מספר הפגיעות ----
+                var visual = pieces[nx, ny].GetComponent<BubbleVisual>();
+                if (visual != null)
                 {
-                    Vector2Int key = new Vector2Int(adjacentX, y);
-
-                    if (!obstacleHitCount.ContainsKey(key))
-                        obstacleHitCount[key] = 0;
-
-                    obstacleHitCount[key]++;
-                    Debug.Log($"[ClearObstacles] bubble {key} hit {obstacleHitCount[key]} times");
-
-                    if (obstacleHitCount[key] >= 3)
-                    {
-                        pieces[adjacentX, y].ClearableComponent.Clear();
-                        SpawnNewPiece(adjacentX, y, PieceType.EMPTY);
-                        obstacleHitCount.Remove(key);
-                    }
+                    visual.UpdateVisual(hits);   // מחליף Sprite לפי hits
                 }
-            }
-        }
 
-        // check vertical sides
-        for (int adjacentY = y - 1; adjacentY <= y + 1; adjacentY++)
-        {
-            if (adjacentY != y && adjacentY >= 0 && adjacentY < yDim)
-            {
-                if (pieces[x, adjacentY].Type == PieceType.BUBBLE && pieces[x, adjacentY].IsClearable())
+                Debug.Log($"[ClearObstacles] bubble {key} hit {hits} times");
+
+                // אחרי 3 פגיעות מנקים לגמרי
+                if (hits >= 3)
                 {
-                    Vector2Int key = new Vector2Int(x, adjacentY);
-
-                    if (!obstacleHitCount.ContainsKey(key))
-                        obstacleHitCount[key] = 0;
-
-                    obstacleHitCount[key]++;
-                    Debug.Log($"[ClearObstacles] bubble {key} hit {obstacleHitCount[key]} times");
-
-                    if (obstacleHitCount[key] >= 3)
-                    {
-                        pieces[x, adjacentY].ClearableComponent.Clear();
-                        SpawnNewPiece(x, adjacentY, PieceType.EMPTY);
-                        obstacleHitCount.Remove(key);
-                    }
+                    pieces[nx, ny].ClearableComponent.Clear();
+                    SpawnNewPiece(nx, ny, PieceType.EMPTY);
+                    obstacleHitCount.Remove(key); // איפוס המונה
                 }
             }
         }
     }
-
 
     public void ClearRow(int row)
     {

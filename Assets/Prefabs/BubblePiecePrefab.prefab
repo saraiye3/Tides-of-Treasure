@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6704987202572896254}
   - component: {fileID: 1763225743589004886}
   - component: {fileID: -3609118964644503581}
+  - component: {fileID: -1747820211502739518}
   m_Layer: 0
   m_Name: BubblePiecePrefab
   m_TagString: Untagged
@@ -79,12 +80,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1095141833252711340, guid: d47ab550613bddc459005a68a03b0e2b, type: 3}
+  m_Sprite: {fileID: 1095141833252711340, guid: bddbdc1b7b43ab64ea5f16d5d21238a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 9.04, y: 9.87}
+  m_Size: {x: 0.8218182, y: 0.8972727}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -111,7 +112,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260247447647589476}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7670b581f24a945bcb18a567feae4811, type: 2}
   m_CullingMode: 0
@@ -138,3 +139,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clearAnimation: {fileID: 7400000, guid: 03517c1a5c7a1498a9ad501cfee4a386, type: 2}
+--- !u!114 &-1747820211502739518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260247447647589476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04358b258147ab4fbd96ab2e75b4565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalSprite: {fileID: 1095141833252711340, guid: bddbdc1b7b43ab64ea5f16d5d21238a8, type: 3}
+  cracked1Sprite: {fileID: -1772166481715379298, guid: 63577f047afff4b48ad7f620ff997b75, type: 3}
+  cracked2Sprite: {fileID: 7201198052207409636, guid: 7971aaf7e1bc6ff48871338eeef6071e, type: 3}

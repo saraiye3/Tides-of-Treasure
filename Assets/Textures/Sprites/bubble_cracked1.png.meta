@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: f01eebaad37b64423878c68fa7a4690f
+guid: 63577f047afff4b48ad7f620ff997b75
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7310493069250068098
-    second: ChatGPT Image Sep 4, 2025, 09_42_35 AM_0
-  - first:
-      213: 2416148812846750566
-    second: ChatGPT Image Sep 4, 2025, 09_42_35 AM_1
-  - first:
-      213: 6831592040054952169
-    second: ChatGPT Image Sep 4, 2025, 09_42_35 AM_2
+      213: -1772166481715379298
+    second: key_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -57,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1200
+  spritePixelsToUnits: 1100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -102,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChatGPT Image Sep 4, 2025, 09_42_35 AM_0
+      name: key_2_0
       rect:
         serializedVersion: 2
-        x: 259
-        y: 815
-        width: 163
-        height: 204
+        x: 95
+        y: 88
+        width: 741
+        height: 881
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e7105624949eb8a90800000000000000
-      internalID: -7310493069250068098
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ChatGPT Image Sep 4, 2025, 09_42_35 AM_1
-      rect:
-        serializedVersion: 2
-        x: 701
-        y: 847
-        width: 116
-        height: 114
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 66b56324b82e78120800000000000000
-      internalID: 2416148812846750566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ChatGPT Image Sep 4, 2025, 09_42_35 AM_2
-      rect:
-        serializedVersion: 2
-        x: 86
-        y: 32
-        width: 936
-        height: 811
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9e09cddd3c0bece50800000000000000
-      internalID: 6831592040054952169
+      spriteID: e93408669fff767e0800000000000000
+      internalID: -1772166481715379298
       vertices: []
       indices: 
       edges: []
@@ -185,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ChatGPT Image Sep 4, 2025, 09_42_35 AM_0: -7310493069250068098
-      ChatGPT Image Sep 4, 2025, 09_42_35 AM_1: 2416148812846750566
-      ChatGPT Image Sep 4, 2025, 09_42_35 AM_2: 6831592040054952169
+      key_2_0: -1772166481715379298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
