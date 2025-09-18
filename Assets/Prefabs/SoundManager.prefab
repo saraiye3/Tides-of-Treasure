@@ -50,7 +50,7 @@ MonoBehaviour:
   sfxSource: {fileID: 4983994182712351965}
   backgroundMusic: {fileID: 8300000, guid: 424512c5793b1f64dabb694e759c7c22, type: 3}
   matchSound: {fileID: 8300000, guid: 4d9b4778dfed88146b87973c402ded5f, type: 3}
-  bigMatchSound: {fileID: 8300000, guid: 4d9b4778dfed88146b87973c402ded5f, type: 3}
+  bigMatchSound: {fileID: 8300000, guid: 9dc85cb53e33f544a93104010a416557, type: 3}
   specialPieceSound: {fileID: 8300000, guid: 4d9b4778dfed88146b87973c402ded5f, type: 3}
 --- !u!82 &2466614093817929198
 AudioSource:
@@ -65,7 +65,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.225
   m_Pitch: 1
   Loop: 1
   Mute: 0
