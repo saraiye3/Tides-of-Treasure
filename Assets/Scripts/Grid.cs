@@ -427,11 +427,13 @@ public class Grid : MonoBehaviour
         return new List<GamePiece>(horizontal);
     }
 
-
     // Check for matches and award bomb boosters when appropriate
     public bool ClearAllValidMatches()
     {
         bool needsRefill = false;
+
+        // נאסוף את כל החתיכות השייכות לכל match לפני שמנקים
+        HashSet<GamePiece> toClear = new HashSet<GamePiece>();
 
         for (int y = 0; y < yDim; y++)
         {
@@ -440,82 +442,94 @@ public class Grid : MonoBehaviour
                 if (pieces[x, y].IsClearable())
                 {
                     List<GamePiece> match = GetMatch(pieces[x, y], x, y);
-
                     if (match != null)
                     {
-                        // Track matches of 5+ for bomb booster system
+                        // ספירה לבוסטר פצצה – לפי מאצ' בודד
                         if (match.Count >= 5)
                         {
                             matchesOf5PlusThisLevel++;
                             Debug.Log("Match of " + match.Count + "! Total 5+ matches this level: " + matchesOf5PlusThisLevel);
-
-                            // Check if player earned a bomb booster
                             CheckAndAwardBombBooster();
                         }
 
-                        PieceType specialPieceType = PieceType.COUNT;
-                        GamePiece randomPiece = match[Random.Range(0, match.Count)];
-
-                        int specialPieceX = randomPiece.X;
-                        int specialPieceY = randomPiece.Y;
-
-                        if (match.Count == 4)
-                        {
-                            if (pressedPiece == null || enteredPiece == null)
-                            {
-                                specialPieceType = (PieceType)Random.Range((int)PieceType.ROW_CLEAR, (int)PieceType.COLUMN_CLEAR);
-                            }
-                            else if (pressedPiece.Y == enteredPiece.Y)
-                            {
-                                specialPieceType = PieceType.ROW_CLEAR;
-                            }
-                            else
-                            {
-                                specialPieceType = PieceType.COLUMN_CLEAR;
-                            }
-                        }
-                        else if (match.Count >= 6)
-                        {
-                            specialPieceType = PieceType.RAINBOW;
-                        }
-
-                        for (int i = 0; i < match.Count; i++)
-                        {
-                            if (ClearPiece(match[i].X, match[i].Y))
-                            {
-                                needsRefill = true;
-
-                                if (match[i] == pressedPiece || match[i] == enteredPiece)
-                                {
-                                    specialPieceX = match[i].X;
-                                    specialPieceY = match[i].Y;
-
-                                }
-                                if (specialPieceType != PieceType.COUNT)
-                                {
-                                    Destroy(pieces[specialPieceX, specialPieceY].gameObject);
-
-                                    GamePiece newPiece = SpawnNewPiece(specialPieceX, specialPieceY, specialPieceType);
-
-                                    if ((specialPieceType == PieceType.ROW_CLEAR || specialPieceType == PieceType.COLUMN_CLEAR)
-                                        && newPiece.IsColored() && match[0].IsColored())
-                                    {
-                                        newPiece.ColorComponent.SetColor(match[0].ColorComponent.Color);
-                                    }
-                                    else if (specialPieceType == PieceType.RAINBOW && newPiece.IsColored())
-                                    {
-                                        newPiece.ColorComponent.SetColor(ColorPiece.ColorType.ANY);
-                                    }
-                                }
-                            }
-                        }
+                        // נוסיף את כל החתיכות של המאצ' לסט הכללי (HashSet מונע כפילויות)
+                        foreach (var gp in match)
+                            toClear.Add(gp);
                     }
                 }
             }
         }
 
+        if (toClear.Count == 0)
+            return false;   // אין התאמות בכלל
+
+        // בוחרים חתיכה אקראית כהפניה ליצירת חתיכה מיוחדת
+        GamePiece refPiece = null;
+        foreach (var gp in toClear) { refPiece = gp; break; }
+
+        PieceType specialPieceType = PieceType.COUNT;
+        int specialPieceX = refPiece.X;
+        int specialPieceY = refPiece.Y;
+
+        // קביעה אם נוצרת חתיכה מיוחדת
+        if (toClear.Count == 4)
+        {
+            if (pressedPiece == null || enteredPiece == null)
+            {
+                specialPieceType = (PieceType)Random.Range((int)PieceType.ROW_CLEAR, (int)PieceType.COLUMN_CLEAR);
+            }
+            else if (pressedPiece.Y == enteredPiece.Y)
+            {
+                specialPieceType = PieceType.ROW_CLEAR;
+            }
+            else
+            {
+                specialPieceType = PieceType.COLUMN_CLEAR;
+            }
+        }
+        else if (toClear.Count >= 6)
+        {
+            specialPieceType = PieceType.RAINBOW;
+        }
+
+        // ניקוי כל החתיכות שנאספו
+        foreach (var gp in toClear)
+        {
+            if (ClearPiece(gp.X, gp.Y))
+            {
+                needsRefill = true;
+
+                // אם אחת מהחתיכות שנלחצו היא חלק מהמאצ'
+                // נשתמש במיקומה ליצירת החתיכה המיוחדת
+                if (gp == pressedPiece || gp == enteredPiece)
+                {
+                    specialPieceX = gp.X;
+                    specialPieceY = gp.Y;
+                }
+            }
+        }
+
+        // יצירת חתיכה מיוחדת במידת הצורך
+        if (specialPieceType != PieceType.COUNT)
+        {
+            Destroy(pieces[specialPieceX, specialPieceY].gameObject);
+
+            GamePiece newPiece = SpawnNewPiece(specialPieceX, specialPieceY, specialPieceType);
+
+            if ((specialPieceType == PieceType.ROW_CLEAR || specialPieceType == PieceType.COLUMN_CLEAR)
+                && newPiece.IsColored() && refPiece.IsColored())
+            {
+                newPiece.ColorComponent.SetColor(refPiece.ColorComponent.Color);
+            }
+            else if (specialPieceType == PieceType.RAINBOW && newPiece.IsColored())
+            {
+                newPiece.ColorComponent.SetColor(ColorPiece.ColorType.ANY);
+            }
+        }
+
         return needsRefill;
     }
+
 
     // Check and award bomb booster when requirements are met
     private void CheckAndAwardBombBooster()

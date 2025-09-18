@@ -13,7 +13,6 @@ public class GameOver : MonoBehaviour
     public UnityEngine.UI.Image[] stars;
     public Animator animator;
     public ParticleSystem coinsPS;
-
     public int currentStageIndex = 1;
 
     private void Start()
