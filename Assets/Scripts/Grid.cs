@@ -427,12 +427,10 @@ public class Grid : MonoBehaviour
         return new List<GamePiece>(horizontal);
     }
 
-    // Check for matches and award bomb boosters when appropriate
     public bool ClearAllValidMatches()
     {
         bool needsRefill = false;
 
-        // נאסוף את כל החתיכות השייכות לכל match לפני שמנקים
         HashSet<GamePiece> toClear = new HashSet<GamePiece>();
 
         for (int y = 0; y < yDim; y++)
@@ -444,15 +442,19 @@ public class Grid : MonoBehaviour
                     List<GamePiece> match = GetMatch(pieces[x, y], x, y);
                     if (match != null)
                     {
-                        // ספירה לבוסטר פצצה – לפי מאצ' בודד
+                        //trigger match event
+                        GameEvents.OnMatch?.Invoke();
+
                         if (match.Count >= 5)
                         {
+                            //trigger big match event
+                            GameEvents.OnBigMatch?.Invoke();
+
                             matchesOf5PlusThisLevel++;
                             Debug.Log("Match of " + match.Count + "! Total 5+ matches this level: " + matchesOf5PlusThisLevel);
                             CheckAndAwardBombBooster();
                         }
 
-                        // נוסיף את כל החתיכות של המאצ' לסט הכללי (HashSet מונע כפילויות)
                         foreach (var gp in match)
                             toClear.Add(gp);
                     }
@@ -461,9 +463,8 @@ public class Grid : MonoBehaviour
         }
 
         if (toClear.Count == 0)
-            return false;   // אין התאמות בכלל
+            return false;
 
-        // בוחרים חתיכה אקראית כהפניה ליצירת חתיכה מיוחדת
         GamePiece refPiece = null;
         foreach (var gp in toClear) { refPiece = gp; break; }
 
@@ -471,7 +472,6 @@ public class Grid : MonoBehaviour
         int specialPieceX = refPiece.X;
         int specialPieceY = refPiece.Y;
 
-        // קביעה אם נוצרת חתיכה מיוחדת
         if (toClear.Count == 4)
         {
             if (pressedPiece == null || enteredPiece == null)
@@ -492,15 +492,16 @@ public class Grid : MonoBehaviour
             specialPieceType = PieceType.RAINBOW;
         }
 
-        // ניקוי כל החתיכות שנאספו
+        //trigger special piece event
+        if (specialPieceType != PieceType.COUNT)
+            GameEvents.OnSpecialPiece?.Invoke();
+
         foreach (var gp in toClear)
         {
             if (ClearPiece(gp.X, gp.Y))
             {
                 needsRefill = true;
 
-                // אם אחת מהחתיכות שנלחצו היא חלק מהמאצ'
-                // נשתמש במיקומה ליצירת החתיכה המיוחדת
                 if (gp == pressedPiece || gp == enteredPiece)
                 {
                     specialPieceX = gp.X;
@@ -509,7 +510,6 @@ public class Grid : MonoBehaviour
             }
         }
 
-        // יצירת חתיכה מיוחדת במידת הצורך
         if (specialPieceType != PieceType.COUNT)
         {
             Destroy(pieces[specialPieceX, specialPieceY].gameObject);
