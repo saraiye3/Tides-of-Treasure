@@ -833,8 +833,8 @@ MonoBehaviour:
   score1Star: 50000
   score2Star: 65000
   score3Star: 75000
-  timeInSeconds: 10
-  targetScore: 0
+  timeInSeconds: 60
+  targetScore: 50000
 --- !u!1 &1784572909
 GameObject:
   m_ObjectHideFlags: 0

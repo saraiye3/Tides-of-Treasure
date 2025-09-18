@@ -201,7 +201,9 @@ public class HUD : MonoBehaviour
 
     public void OnReturnClicked()
     {
+        SoundManager.instance.musicSource.Stop();
         SceneManager.LoadScene("menuScene");
+
     }
 
     public void ShowShuffleMessage()
