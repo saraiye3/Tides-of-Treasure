@@ -152,5 +152,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalSprite: {fileID: 1095141833252711340, guid: bddbdc1b7b43ab64ea5f16d5d21238a8, type: 3}
-  cracked1Sprite: {fileID: -1772166481715379298, guid: 63577f047afff4b48ad7f620ff997b75, type: 3}
+  cracked1Sprite: {fileID: 4554167684996087834, guid: c46a3b1b469e60b4fac7aff44f048d08, type: 3}
   cracked2Sprite: {fileID: 7201198052207409636, guid: 7971aaf7e1bc6ff48871338eeef6071e, type: 3}
