@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 63577f047afff4b48ad7f620ff997b75
+guid: c46a3b1b469e60b4fac7aff44f048d08
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1772166481715379298
-    second: key_2_0
+      213: 738229966072831585
+    second: bubble_cracked 1_0
+  - first:
+      213: 6390010368177778223
+    second: bubble_cracked 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: key_2_0
+      name: bubble_cracked 1_0
       rect:
         serializedVersion: 2
-        x: 95
-        y: 88
-        width: 741
-        height: 881
+        x: 71
+        y: 72
+        width: 848
+        height: 905
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e93408669fff767e0800000000000000
-      internalID: -1772166481715379298
+      spriteID: 16ed15a2e38be3a00800000000000000
+      internalID: 738229966072831585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_cracked 1_1
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 886
+        width: 112
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2eac4af290eda850800000000000000
+      internalID: 6390010368177778223
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      key_2_0: -1772166481715379298
+      bubble_cracked 1_0: 738229966072831585
+      bubble_cracked 1_1: 6390010368177778223
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
