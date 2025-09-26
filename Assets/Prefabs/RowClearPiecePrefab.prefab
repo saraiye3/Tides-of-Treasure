@@ -79,7 +79,7 @@ MonoBehaviour:
   - color: 0
     sprite: {fileID: 6393978285550478372, guid: c4ef886c71ac8cf4a858f0580ed5f4b7, type: 3}
   - color: 1
-    sprite: {fileID: 8127109018212209, guid: d325d97b729c6374e93f6c1172a1472a, type: 3}
+    sprite: {fileID: 8127109018212209, guid: 819bab7162b895c44bd9f11a7f1d4758, type: 3}
   - color: 2
     sprite: {fileID: 724185537479822613, guid: 3ac0bf3750ebd8547aaeda7ae09ed237, type: 3}
   - color: 3
