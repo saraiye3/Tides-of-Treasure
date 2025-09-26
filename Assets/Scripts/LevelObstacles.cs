@@ -38,7 +38,7 @@ public class LevelObstacles : Level
 
     public override void OnPieceCleared(GamePiece piece)
     {
-        //base.OnPieceCleared(piece);
+        base.OnPieceCleared(piece);
 
         for(int i = 0;i < obstacleTypes.Length;i++)
         {
