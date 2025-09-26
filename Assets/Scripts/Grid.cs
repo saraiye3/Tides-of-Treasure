@@ -53,7 +53,7 @@ public class Grid : MonoBehaviour
     // Bomb Booster System
     [Header("Bomb Booster System")]
     public int matchesOf5PlusThisLevel = 0;
-    public int requiredMatchesForBombBooster = 5;
+    public int requiredMatchesForBombBooster = 1;
     private bool bombBoosterMode = false;
 
     private bool isFilling = false;
