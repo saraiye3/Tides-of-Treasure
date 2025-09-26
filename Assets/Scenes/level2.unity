@@ -454,6 +454,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShuffleText
       objectReference: {fileID: 0}
+    - target: {fileID: 2083597280927485284, guid: a3b80b957d48d7e46b6961d7ef299a47, type: 3}
+      propertyPath: m_fontSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083597280927485284, guid: a3b80b957d48d7e46b6961d7ef299a47, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8487160979405585378, guid: a3b80b957d48d7e46b6961d7ef299a47, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
