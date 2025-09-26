@@ -113,7 +113,7 @@ public class HUD : MonoBehaviour
         else if (type == Level.LevelType.OBSTACLE)
         {
             remainingSubtext.text = "moves";
-            targetSubtext.text = "keys remaining";
+            targetSubtext.text = "keys left";
         }
         else if (type == Level.LevelType.TIMER)
         {

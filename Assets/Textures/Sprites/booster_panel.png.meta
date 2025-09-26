@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 67838adc1a16b2f4487693d1bdbefbd9
+guid: 647e61dace1819342a19d0db654540c6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1422635220030863618
-    second: blue1 button_0
+      213: -5799508653969422150
+    second: booster_panel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: blue1 button_0
+      name: booster_panel_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 10
         y: 0
-        width: 1024
+        width: 1516
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef6c9190ec8c14ce0800000000000000
-      internalID: -1422635220030863618
+      spriteID: ab849583b91048fa0800000000000000
+      internalID: -5799508653969422150
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      blue1 button_0: -1422635220030863618
+      booster_panel_0: -5799508653969422150
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
